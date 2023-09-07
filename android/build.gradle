@@ -16,6 +16,7 @@ buildscript {
     }
     dependencies {
         classpath("com.android.tools.build:gradle")
+        implementation(':react-native-push-notification')
         classpath("com.facebook.react:react-native-gradle-plugin")
     }
 }
