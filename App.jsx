@@ -75,11 +75,11 @@ function App() {
       },
       (created) => console.log(`PushNotification channel created: ${created}`)
     );
-    };
-    useEffect(() => {
-      checkPermission();
-      createNotificationChannel();
-    }, []);
+  };
+  useEffect(() => {
+    checkPermission();
+    createNotificationChannel();
+  }, []);
     
 
   return (
