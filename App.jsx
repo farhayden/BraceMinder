@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -14,8 +14,9 @@ import {
   Text,
   useColorScheme,
   View,
+  PermissionsAndroid,
 } from 'react-native';
-
+import PushNotification from 'react-native-push-notification';
 import {
   Colors,
   DebugInstructions,
@@ -56,6 +57,30 @@ function App() {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  const checkPermission = async () => {
+    const enabled = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
+    console.log("Permission granted: " + enabled);
+    if (enabled) {
+      console.log("Permission granted");
+    } else {
+      PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS).then(() => { console.log("Permission granted true"); }
+    )};
+  }
+  const createNotificationChannel = async () => {
+    PushNotification.createChannel(
+      {
+        channelId: "BraceMinder-channel-id", // A unique ID for the channel
+        channelName: "BraceMinder", // The name of the channel
+        channelDescription: "notification channel for BraceMinder mobile application", // Description of the channel
+      },
+      (created) => console.log(`PushNotification channel created: ${created}`)
+    );
+    };
+    useEffect(() => {
+      checkPermission();
+      createNotificationChannel();
+    }, []);
+    
 
   return (
     <SafeAreaView style={backgroundStyle}>
