@@ -4,7 +4,7 @@
  *
  * @format
  */
-
+import scheduleLocalNotification from './services/RemindersService';
 import React, { useEffect } from 'react';
 import {
   SafeAreaView,
@@ -15,6 +15,7 @@ import {
   useColorScheme,
   View,
   PermissionsAndroid,
+  TouchableOpacity,
 } from 'react-native';
 import PushNotification from 'react-native-push-notification';
 import {
@@ -110,6 +111,13 @@ function App() {
             Read the docs to discover what to do next:
           </Section>
           <LearnMoreLinks />
+        </View>
+        <View>
+        <TouchableOpacity onPress={scheduleLocalNotification}>
+            <View style={{ backgroundColor: 'blue', padding: 10, borderRadius: 5 }}>
+              <Text style={{ color: 'white' }}>Schedule Notification</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
