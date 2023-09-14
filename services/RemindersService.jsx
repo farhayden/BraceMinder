@@ -1,4 +1,4 @@
-
+import PushNotification from 'react-native-push-notification';
 
 function scheduleLocalNotification() {
 
@@ -11,7 +11,7 @@ function scheduleLocalNotification() {
         vibration: 300,
         subtext: "This is a subtext",
         bigText: "This is a place holder for tooth brushing reminder",
-        date: new Date(Date.now() + 5 * 1000), // in 60 secs
-        repeatTime: 1,
+        date: selectedTime,
+        repeatTime: 'daily',
     });
 } export default scheduleLocalNotification;
