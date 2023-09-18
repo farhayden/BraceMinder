@@ -12,13 +12,27 @@ function RemindersScreen() {
     };
       
     return (
-        <View>
+        <View style={styles.container}>
             {/* Other content */}
-            <Button title="Set Tooth Brushing Reminder" onPress={handlePress} />
+            <Button style= {styles.item} title="Tooth Brushing" onPress={handlePress} />
         </View>
     );
 }
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 20,
+        backgroundColor: '#ffffff',
+        justifyContent: "center", // Center the content vertically
+        alignItems: "center", // Center the content horizontally
+        
+    },
+    logo: {
+        width: 100, // Set a width for the logo
+        height: 100, // Set a height for the logo (you can adjust as needed)
+        resizeMode: "contain", // Keep the logo's aspect ratio
+        marginBottom: 20
+    },
     item: {
         padding: 10,
         fontSize: 18,
@@ -32,6 +46,6 @@ const styles = StyleSheet.create({
         marginBottom: 10, // Gap between items
         textAlign: 'center',
     
-      },
+    },
 }); 
 export default RemindersScreen;
