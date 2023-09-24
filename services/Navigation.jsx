@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 
-import HomeScreen from "../screens/HomeScreen";
+import HomeScreen from "../screens/Homescreen";
 import Reminders from "../screens/Reminders";
 import ToothBrushing from "../screens/ToothBrushing";
 
