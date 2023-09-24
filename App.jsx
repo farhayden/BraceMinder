@@ -14,9 +14,10 @@ import {
   useColorScheme,
   View,
   PermissionsAndroid,
+  Button,
   TouchableOpacity,
 } from 'react-native';
-import PushNotification from 'react-native-push-notification';
+import PushNotification, {Importance} from 'react-native-push-notification';
 import {
   Colors,
   DebugInstructions,
@@ -37,12 +38,38 @@ function App() {
       PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS).then(() => { console.log("Permission granted true"); }
     )};
   }
+
+
+  // const checkPermission = async () => {
+  //   try {
+  //     const granted = await PermissionsAndroid.request(
+  //       PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
+  //       {
+  //         title: 'Notification Permission',
+  //         message: 'This app needs notification permissions to send you reminders.',
+  //         buttonNeutral: 'Ask Me Later',
+  //         buttonNegative: 'Cancel',
+  //         buttonPositive: 'OK',
+  //       }
+  //     );
+
+  //     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+  //       console.log('Permission granted');
+  //     } else {
+  //       console.log('Permission denied');
+  //     }
+  //   } catch (err) {
+  //     console.warn(err);
+  //   }
+  // };
+
   const createNotificationChannel = async () => {
     PushNotification.createChannel(
       {
         channelId: "BraceMinder-channel-id", // A unique ID for the channel
         channelName: "BraceMinder", // The name of the channel
         channelDescription: "notification channel for BraceMinder mobile application", // Description of the channel
+        importance: Importance.HIGH,
       },
       (created) => console.log(`PushNotification channel created: ${created}`)
     );
@@ -53,7 +80,12 @@ function App() {
   }, []);
     
 
-return <BottomTabNav/>;
+return(<>
+  <View>
+    {/* <Button title="Permissions" onPress={checkPermission}/> */}
+  </View> 
+  <BottomTabNav/>
+</>);
 }
 
 // const styles = StyleSheet.create({
