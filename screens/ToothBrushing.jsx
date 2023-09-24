@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, TextInput, Image, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, Image, StyleSheet, Button } from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker'; // Import the datetimepicker component
 import scheduleLocalNotification from "../services/RemindersService";
+import { amTime as defaultAmTime, pmTime as defaultPmTime } from "../services/RemindersService"; // Import the constants
 import logo from "../assets/logo.png";
 
 const LOGO = logo;
@@ -12,7 +13,7 @@ function ToothBrushing() {
       message: "",
       subtext: "",
       bigText: "",
-      time: new Date(), // Default time for the AM reminder
+      time: defaultPmTime, // Default time for the AM reminder
       repeatTime: 1, // Default repeat time (you can change this)
     });
   
@@ -21,28 +22,46 @@ function ToothBrushing() {
       message: "",
       subtext: "",
       bigText: "",
-      time: new Date(), // Default time for the PM reminder
+      time: defaultPmTime, // Default time for the PM reminder
       repeatTime: 1, // Default repeat time (you can change this)
     });
 
-    const [showTimePicker, setShowTimePicker] = useState(false); // State to control the visibility of the time picker
+    // New state variables for the selected times
+    const [amTime, setAmTime] = useState(defaultAmTime);
+    const [pmTime, setPmTime] = useState(defaultPmTime);
 
-    const handleTimeChange = (event, selectedTime) => {
+    const [showAmTimePicker, setShowAmTimePicker] = useState(false); // State to control the visibility of the time picker for AM reminder
+    const [showPmTimePicker, setShowPmTimePicker] = useState(false); // State to control the visibility of the time picker for PM reminder
+    
+    const handleAmTimeChange = (event, selectedTime) => {
         if (selectedTime !== undefined) {
-        const updatedAmReminder = { ...amReminder, time: selectedTime };
-        setAmReminder(updatedAmReminder);
-
-        const updatedPmReminder = { ...pmReminder, time: selectedTime };
-        setPmReminder(updatedPmReminder);
+            setAmTime(selectedTime);
+            
+            const updatedAmReminder = { ...amReminder, time: selectedTime };
+            setAmReminder(updatedAmReminder);
         }
-
-        setShowTimePicker(false);
+        setShowAmTimePicker(false);
+    };
+    
+    const handlePmTimeChange = (event, selectedTime) => {
+        if (selectedTime !== undefined) {
+            setPmTime(selectedTime);
+            
+            const updatedPmReminder = { ...pmReminder, time: selectedTime };
+            setPmReminder(updatedPmReminder);
+        }
+        setShowPmTimePicker(false);
     };
     
     const handleScheduleReminders = () => {
         // Call the scheduleLocalNotification function with both AM and PM reminder data
+        //check if amTime and pmTime are set before scheduling
+        if (amTime && pmTime) {
         scheduleLocalNotification(amReminder);
         scheduleLocalNotification(pmReminder);
+        } else {
+            alert("Please set both AM and PM times before scheduling reminders.");
+        }
     };
 
     
@@ -57,41 +76,41 @@ function ToothBrushing() {
             />
 
             {/* Add a button to open the time picker for AM reminder */}
-            <TouchableOpacity onPress={() => setShowTimePicker(true)}>
-                <Text>Set Time for Morning Reminder</Text>
+            <TouchableOpacity >
+                <Button title="Time for AM Reminder" onPress={() => setShowAmTimePicker(true)}/>
             </TouchableOpacity>
 
-            {showTimePicker && (
+            {showAmTimePicker && (
                 <DateTimePicker
-                    value={amReminder.time}
+                    value={amTime || new Date()}
                     mode="time"
                     is24Hour={false}
-                    display="clock"
-                    onChange={handleTimeChange}
-                    selectedTime={amReminder.time}
+                    display="spinner"
+                    onChange={handleAmTimeChange}
                 />
             )}
             <Text>Evening Tooth Brushing Reminder</Text>
             <TextInput
                 placeholder="Message"
-                value={amReminder.message}
-                onChangeText={(text) => setAmReminder({ ...pmReminder, message: text })}
+                value={pmReminder.message}
+                onChangeText={(text) => setPmReminder({ ...pmReminder, message: text })}
             />
-            {showTimePicker && (
+            {showPmTimePicker && (
                 <DateTimePicker
-                    value={pmReminder.time}
+                    value={pmTime || new Date()}
+                    color="blue"
                     mode="time"
                     is24Hour={false}
-                    display="clock"
-                    onChange={handleTimeChange}
+                    display="spinner"
+                    onChange={handlePmTimeChange}
                 />
             )}
-            {/* Add a button to open the time picker for AM reminder */}
-            <TouchableOpacity onPress={() => setShowTimePicker(true)}>
-                <Text>Set Time for Evening Reminder</Text>
+            {/* Add a button to open the time picker for PM reminder */}
+            <TouchableOpacity >
+                <Button title='Time for PM Reminder' onPress={() => setShowPmTimePicker(true)}/>
             </TouchableOpacity>
             {/* Add more input fields for additional reminder details as needed */}
-            <TouchableOpacity onPress={handleScheduleReminders}>
+            <TouchableOpacity onPress={() => handleScheduleReminders(true)}>
                 <View
                     style={{
                         backgroundColor: "blue",
