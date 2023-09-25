@@ -1,34 +1,40 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, TextInput, Image, StyleSheet, Button } from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker'; // Import the datetimepicker component
-import scheduleLocalNotification from "../services/RemindersService";
-import { amTime as defaultAmTime, pmTime as defaultPmTime } from "../services/RemindersService"; // Import the constants
+//import scheduleLocalNotification from "../services/RemindersService";
+import PushNotification from 'react-native-push-notification';
+//import { amTime as defaultAmTime, pmTime as defaultPmTime } from "../services/RemindersService"; // Import the constants
 import logo from "../assets/logo.png";
 
 const LOGO = logo;
 
 function ToothBrushing() {
+
+    const defaultAmTime = new Date();
+    defaultAmTime.setHours(8); // Set AM hour (e.g., 8 AM)
+    defaultAmTime.setMinutes(0); // Set AM minute (e.g., 0 minutes)
+
+    const defaultPmTime = new Date();
+    defaultPmTime.setHours(20); // Set PM hour (e.g., 8 PM)
+    defaultPmTime.setMinutes(0); // Set PM minute (e.g., 0 minutes)
+
     const [amReminder, setAmReminder] = useState({
       title: "Tooth Brushing (AM)",
       message: "",
-      subtext: "",
-      bigText: "",
-      time: defaultPmTime, // Default time for the AM reminder
+      time: defaultAmTime, // Default time for the AM reminder
       repeatTime: 1, // Default repeat time (you can change this)
     });
   
     const [pmReminder, setPmReminder] = useState({
       title: "Tooth Brushing (PM)",
       message: "",
-      subtext: "",
-      bigText: "",
       time: defaultPmTime, // Default time for the PM reminder
       repeatTime: 1, // Default repeat time (you can change this)
     });
 
     // New state variables for the selected times
-    const [amTime, setAmTime] = useState(defaultAmTime);
-    const [pmTime, setPmTime] = useState(defaultPmTime);
+    const [amTime, setAmTime] = useState(new Date());
+    const [pmTime, setPmTime] = useState(new Date());
 
     const [showAmTimePicker, setShowAmTimePicker] = useState(false); // State to control the visibility of the time picker for AM reminder
     const [showPmTimePicker, setShowPmTimePicker] = useState(false); // State to control the visibility of the time picker for PM reminder
@@ -52,7 +58,20 @@ function ToothBrushing() {
         }
         setShowPmTimePicker(false);
     };
-    
+    // Define the scheduleLocalNotification function here
+    function scheduleLocalNotification(reminderData) {
+        PushNotification.localNotificationSchedule({
+            channelId: "BraceMinder-channel-id",
+            title: reminderData.title,
+            message: reminderData.message,
+            color: "blue",
+            vibrate: true,
+            vibration: 300,
+            foreground: true,
+            date: reminderData.time,
+            repeatTime: 'daily',
+        });
+    }
     const handleScheduleReminders = () => {
         // Call the scheduleLocalNotification function with both AM and PM reminder data
         //check if amTime and pmTime are set before scheduling
@@ -69,8 +88,8 @@ function ToothBrushing() {
         <View style={styles.container}>
             <Image source={LOGO} style={styles.logo} />
             <Text>Morning Tooth Brushing Reminder</Text>
-            <TextInput
-                placeholder="Message"
+            <TextInput style={styles.textInput}
+                placeholder="enter reminder message"
                 value={amReminder.message}
                 onChangeText={(text) => setAmReminder({ ...amReminder, message: text })}
             />
@@ -90,8 +109,8 @@ function ToothBrushing() {
                 />
             )}
             <Text>Evening Tooth Brushing Reminder</Text>
-            <TextInput
-                placeholder="Message"
+            <TextInput style={styles.textInput}
+                placeholder="enter reminder message"
                 value={pmReminder.message}
                 onChangeText={(text) => setPmReminder({ ...pmReminder, message: text })}
             />
@@ -160,6 +179,14 @@ const styles = StyleSheet.create({
       borderRadius: 25, // Rounded edges
       marginBottom: 10, // Gap between items
       textAlign: 'center',
+    },
+    textInput: {
+        height: 100, // Adjust the height as needed
+        borderColor: 'gray',
+        borderWidth: 1,
+        borderRadius: 5,
+        padding: 10,
+        marginTop: 5,
     },
     buttonText: {
       color: 'white',
