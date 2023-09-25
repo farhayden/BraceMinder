@@ -11,8 +11,8 @@ import ToothBrushing from "../screens/ToothBrushing";
 const HomeStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const HOMESCREENICON = "home";
-const REMINDERSCREENICON = "alarm";
+const HOMESCREENICON = "";
+const REMINDERSCREENICON = "";
 
 function HomeStackScreen({ initialScreen }) {
     return (
