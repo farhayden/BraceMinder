@@ -20,14 +20,14 @@ function ToothBrushing() {
 
     const [amReminder, setAmReminder] = useState({
       title: "Tooth Brushing (AM)",
-      message: "",
+      message: "please brush your teeth",
       time: defaultAmTime, // Default time for the AM reminder
       repeatTime: 1, // Default repeat time (you can change this)
     });
   
     const [pmReminder, setPmReminder] = useState({
       title: "Tooth Brushing (PM)",
-      message: "",
+      message: "Please brush your teeth",
       time: defaultPmTime, // Default time for the PM reminder
       repeatTime: 1, // Default repeat time (you can change this)
     });
@@ -88,12 +88,6 @@ function ToothBrushing() {
         <View style={styles.container}>
             <Image source={LOGO} style={styles.logo} />
             <Text>Morning Tooth Brushing Reminder</Text>
-            <TextInput style={styles.textInput}
-                placeholder="enter reminder message"
-                value={amReminder.message}
-                onChangeText={(text) => setAmReminder({ ...amReminder, message: text })}
-            />
-
             {/* Add a button to open the time picker for AM reminder */}
             <TouchableOpacity >
                 <Button title="Time for AM Reminder" onPress={() => setShowAmTimePicker(true)}/>
@@ -109,11 +103,6 @@ function ToothBrushing() {
                 />
             )}
             <Text>Evening Tooth Brushing Reminder</Text>
-            <TextInput style={styles.textInput}
-                placeholder="enter reminder message"
-                value={pmReminder.message}
-                onChangeText={(text) => setPmReminder({ ...pmReminder, message: text })}
-            />
             {showPmTimePicker && (
                 <DateTimePicker
                     value={pmTime || new Date()}
