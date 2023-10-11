@@ -69,10 +69,12 @@ function ToothBrushing() {
             vibration: 300,
             foreground: true,
             date: reminderData.time,
-            repeatTime: 'daily',
+            repeatType: 'day',
+            repeatTime: 1,
         });
     }
     const handleScheduleReminders = () => {
+        const currentTime = new Date(); // Get the current time
         // Call the scheduleLocalNotification function with both AM and PM reminder data
         //check if amTime and pmTime are set before scheduling
         if (amTime && pmTime) {
