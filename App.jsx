@@ -5,7 +5,7 @@
  * @format
  */
 import scheduleLocalNotification from './services/RemindersService';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ScrollView,
   StatusBar,
@@ -27,9 +27,10 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import { BottomTabNav } from './services/Navigation';
 
-function App() {
 
-  const checkPermission = async () => {
+const App = () => {
+
+   const checkPermission = async () => {
     const enabled = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
     console.log("Permission granted: " + enabled);
     if (enabled) {
@@ -80,13 +81,13 @@ function App() {
   }, []);
     
 
-return(<>
+return(
+  <>
   <View>
-    {/* <Button title="Permissions" onPress={checkPermission}/> */}
   </View> 
   <BottomTabNav/>
-</>);
-}
+  </>
+)
 
 // const styles = StyleSheet.create({
 //   sectionContainer: {
@@ -106,5 +107,6 @@ return(<>
 //     fontWeight: '700',
 //   },
 // });
+};
 
 export default App;

@@ -1,6 +1,7 @@
 import { FlatList, StyleSheet, Text, View, Button, Image } from "react-native";
 
 import logo from "../assets/logo.png";
+import Splash from '../services/Splash';
 
 const LOGO = logo;
 
