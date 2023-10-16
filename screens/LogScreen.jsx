@@ -3,11 +3,13 @@ import { Dimensions, FlatList, StyleSheet, View, Modal, TouchableOpacity, Image,
 import { useNavigation } from '@react-navigation/native';
 //import { MaterialCommunityIcons } from '@expo/vector-icons';
 import logo from "../assets/logo.png";
+import cameraIcon from "../assets/cameraIcon.png"
 import { styles } from '../assets/style.jsx';
 import ImageContext from '../services/ImageContext';
 //import useProfileLink from "../components/ProfileLink.js";
 
 const LOGO = logo;
+const CAMERA = cameraIcon
 const screenWidth = Dimensions.get('window').width;
 const imageSize = screenWidth / 5;
 
@@ -19,15 +21,15 @@ const MyLogScreen = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-//   useLayoutEffect(() => {
-//     navigation.setOptions({
-//       headerRight: () => (
-//         <TouchableOpacity onPress={() => navigation.navigate('Camera')} style={{ flexDirection: 'row', alignItems: 'center' }}>
-//           <MaterialCommunityIcons name="camera" size={40} color="#FFFFFF"/>
-//         </TouchableOpacity>
-//       ),
-//     });
-//   }, [navigation]);
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={() => navigation.navigate('Camera')} style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Image source={CAMERA}/>
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
 
   // Get the last 15 images
   const last15Images = images.slice(-15);
