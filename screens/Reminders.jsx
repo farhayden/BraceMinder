@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Button, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, Button, StyleSheet, Switch } from "react-native";
 import ToothBrushing from "./ToothBrushing";
 import { useNavigation } from "@react-navigation/native";
 import scheduleLocalNotification from "../services/RemindersService";
+import logo from "../assets/logo.png";
+
+const LOGO = logo;
 
 function RemindersScreen() {
     const navigation = useNavigation();
