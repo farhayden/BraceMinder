@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Button, StyleSheet, Switch } from "react-native";
+import { View, Text, TouchableOpacity, Button, StyleSheet, Switch, Image } from "react-native";
 import ToothBrushing from "./ToothBrushing";
 import { useNavigation } from "@react-navigation/native";
 import scheduleLocalNotification from "../services/RemindersService";
 import logo from "../assets/logo.png";
+import tasks from "../data/tasks";
 
 const LOGO = logo;
 
