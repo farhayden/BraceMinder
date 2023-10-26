@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect, useContext} from 'react';
 import {
   View,
   TouchableOpacity,
@@ -6,7 +6,8 @@ import {
   Image,
   Button,
   Linking,
-  useIsFocused
+  Alert,
+  useIsFocused, 
 } from 'react-native';
 import {
   Camera,
@@ -14,10 +15,15 @@ import {
   useCameraPermission,
 } from 'react-native-vision-camera';
 
+import { CameraRoll } from "@react-native-camera-roll/camera-roll";
+
+import ImageContext from '../services/ImageContext';
+
 export default function CameraScreen() {
   const [photo, setPhoto] = useState(null);
   const cameraRef = useRef(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
+  const [images, setImages] = useState([]);
 
   const {hasPermission, requestPermission} = useCameraPermission();
   const [isPermissionDenied, setIsPermissionDenied] = useState(false);
@@ -25,21 +31,6 @@ export default function CameraScreen() {
   const [selectedDevice, setSelectedDevice] = useState(
     cameras[1] || cameras[0]|| null,
   );
-
-  //const isFocused = useIsFocused();
-
-  useEffect(() => {
-    console.log("Permission status:", hasPermission);
-    // ... rest of your permission logic
-  }, [hasPermission]);
-  
-
-  useEffect(() => {
-    console.log("Available cameras:", cameras);
-    // ... rest of your camera selection logic
-  }, [cameras]);
-  
-
 
 
 
@@ -86,8 +77,39 @@ export default function CameraScreen() {
 
     const takePicture = async () => {
       if (cameraRef.current && isCameraReady) {
-          const photoUri = await cameraRef.current.takePhoto({});
-          setPhoto(photoUri);
+        const file = await cameraRef.current.takePhoto()
+
+Alert.alert(
+  'Photo Taken',
+  'Would you like to keep this photo?',
+  [
+    {
+      text: 'Retake',
+      onPress: retakePicture,
+      style: 'cancel',
+    },
+    {
+      text: 'Keep',
+      onPress:  async () => {
+        try {
+          await CameraRoll.save(`file://${file.path}`, { type: 'photo' });
+          // Update the context with the new image
+          setImages(prevImages => {
+            console.log("Adding new image to state:", `file://${file.path}`);
+            console.log('Images :>> ', images);
+            return [...prevImages, `file://${file.path}`];
+          });
+        } catch (error) {
+          console.error("Failed to save the image", error);
+        }
+      },
+    },
+      //style: 'default',
+  ],
+  {
+    cancelable: false, // user must select one of the options
+  },
+);
       } else {
         return (
           <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -110,6 +132,8 @@ export default function CameraScreen() {
                 style={{flex: 1}}
                 ref={cameraRef}
                 device={selectedDevice}
+                photo = {true}
+                isActive={true}
                 onInitialized={() => setIsCameraReady(true)}
               />
 

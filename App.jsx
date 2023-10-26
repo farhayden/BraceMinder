@@ -93,10 +93,11 @@ function App() {
     
 
 return(<>
+<ImageContext.Provider value={{ images, addImage, clearImages }}>
   <View>
     {/* <Button title="Permissions" onPress={checkPermission}/> */}
   </View> 
-  <ImageContext.Provider value={{ images, addImage, clearImages }}>
+  
   <BottomTabNav/>
   </ImageContext.Provider>
 </>);

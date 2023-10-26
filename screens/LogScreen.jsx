@@ -1,4 +1,4 @@
-import React, { useState, useContext, useLayoutEffect } from 'react';
+import React, { useState, useContext, useLayoutEffect, useEffect } from 'react';
 import { Dimensions, FlatList, StyleSheet, View, Modal, TouchableOpacity, Image, Text } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 //import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -18,8 +18,15 @@ const rowGapSize = 20; // Adjust this value to set the desired gap size between 
 const MyLogScreen = () => {
   const navigation = useNavigation();
   const { images } = useContext(ImageContext);
+  console.log('Fetched images:', images);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+
+
+  useEffect(() => {
+    console.log("Images changed, rerendering MyLogScreen:", images);
+  }, [images]);
+  
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -47,7 +54,9 @@ const MyLogScreen = () => {
   return (
     <View style={styles.logContainer}>
       <Image source={LOGO} style={styles.logo} />
+      
       <FlatList
+       keyExtractor={(item) => item}  
         data={last15Images} // Use the last 15 images
         renderItem={({ item }) => (
           <TouchableOpacity
