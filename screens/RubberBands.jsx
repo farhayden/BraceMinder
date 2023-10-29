@@ -115,3 +115,27 @@ function RubberBands() {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: "column",
+        backgroundColor: '#ffffff',
+        justifyContent: "space-around",
+        alignItems: "center",
+    },
+    logo: {
+        width: 100,
+        height: 100,
+        resizeMode: "contain",
+        marginBottom: 5,
+    },
+    button: {
+        borderRadius: 15,
+        color: 'white',
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 20,
+    },
+});
