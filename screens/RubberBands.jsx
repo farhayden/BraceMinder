@@ -8,5 +8,9 @@ import logo from "../assets/logo.png";
 const LOGO = logo;
 
 function RubberBands() {
-    
+
+    // Declaration of the state variables
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+    const [timeFrame, setTimeFrame] = useState(1); // Default time frame is 1 hour
 }
