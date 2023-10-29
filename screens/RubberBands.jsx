@@ -20,5 +20,10 @@ function RubberBands() {
         }
     };
 
+    const handleEndDateChange = (event, selectedDate) => {
+        if (selectedDate !== undefined) {
+            setEndDate(selectedDate);
+        }
+    };
     
 }
