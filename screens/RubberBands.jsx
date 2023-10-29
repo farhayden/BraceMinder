@@ -13,4 +13,12 @@ function RubberBands() {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [timeFrame, setTimeFrame] = useState(1); // Default time frame is 1 hour
+
+    const handleStartDateChange = (event, selectedDate) => {
+        if (selectedDate !== undefined) {
+            setStartDate(selectedDate);
+        }
+    };
+
+    
 }
