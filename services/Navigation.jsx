@@ -7,6 +7,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import HomeScreen from "../screens/HomeScreen";
 import Reminders from "../screens/Reminders";
 import ToothBrushing from "../screens/ToothBrushing";
+import RubberBands from "../screens/RubberBands";
 
 const HomeStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -23,6 +24,7 @@ function HomeStackScreen({ initialScreen }) {
         <HomeStack.Screen name="BraceMinder" component={HomeScreen} />
         <HomeStack.Screen name="Reminders" component={Reminders} />
         <HomeStack.Screen name="ToothBrushing" component={ToothBrushing} />
+        <HomeStack.Screen name="RubberBands" component={RubberBands} />
       </HomeStack.Navigator>
     );
 }
