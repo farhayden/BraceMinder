@@ -70,4 +70,48 @@ function RubberBands() {
             date: reminderData.time,
         });
     }
+
+    return (
+        <View style={styles.container}>
+            <Image source={LOGO} style={styles.logo} />
+            <TouchableOpacity>
+                <View style={styles.button}>
+                    <Button style={styles.button} title="Set Start Date" onPress={() => setShowStartDatePicker(true)}/>
+                </View>
+            </TouchableOpacity>
+            <DateTimePicker
+                value={startDate}
+                mode="datetime"
+                is24Hour={false}
+                display="spinner"
+                onChange={handleStartDateChange}
+            />
+            <TouchableOpacity>
+                <View style={styles.button}>
+                    <Button style={styles.button} title="Set End Date" onPress={() => setShowEndDatePicker(true)}/>
+                </View>
+            </TouchableOpacity>
+            <DateTimePicker
+                value={endDate}
+                mode="datetime"
+                is24Hour={false}
+                display="spinner"
+                onChange={handleEndDateChange}
+            />
+            <Text style={{ marginTop: 20 }}>Select Time Frame (hours):</Text>
+            <Picker
+                selectedValue={timeFrame}
+                onValueChange={(itemValue) => handleTimeFrameChange(itemValue)}
+            >
+                <Picker.Item label="1 hour" value={1} />
+                <Picker.Item label="2 hours" value={2} />
+                <Picker.Item label="4 hours" value={4} />
+            </Picker>
+            <TouchableOpacity onPress={handleScheduleCustomNotifications}>
+                <View style={styles.button}>
+                    <Button title="Schedule Custom Notifications" />
+                </View>
+            </TouchableOpacity>
+        </View>
+    );
 }
