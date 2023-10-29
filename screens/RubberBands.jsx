@@ -107,7 +107,7 @@ function RubberBands() {
                 <Picker.Item label="2 hours" value={2} />
                 <Picker.Item label="4 hours" value={4} />
             </Picker>
-            <TouchableOpacity onPress={handleScheduleCustomNotifications}>
+            <TouchableOpacity onPress={handleRubberBandNotifications}>
                 <View style={styles.button}>
                     <Button title="Schedule Custom Notifications" />
                 </View>
