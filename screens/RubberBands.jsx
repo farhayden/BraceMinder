@@ -57,4 +57,17 @@ function RubberBands() {
             alert("No valid notifications were scheduled within the selected time frame.");
         }
     };
+
+    function scheduleLocalNotification(reminderData) {
+        PushNotification.localNotificationSchedule({
+            channelId: "CustomNotification-channel-id",
+            title: reminderData.title,
+            message: reminderData.message,
+            color: "blue",
+            vibrate: true,
+            vibration: 300,
+            foreground: true,
+            date: reminderData.time,
+        });
+    }
 }
