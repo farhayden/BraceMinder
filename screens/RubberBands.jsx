@@ -14,16 +14,24 @@ function RubberBands() {
     const [endDate, setEndDate] = useState(new Date());
     const [timeFrame, setTimeFrame] = useState(1); // Default time frame is 1 hour
 
+    // State to control the visibility of the date picker for start date
     const handleStartDateChange = (event, selectedDate) => {
         if (selectedDate !== undefined) {
             setStartDate(selectedDate);
         }
     };
 
+    // State to control the visibility of the date picker for end date
     const handleEndDateChange = (event, selectedDate) => {
         if (selectedDate !== undefined) {
             setEndDate(selectedDate);
         }
     };
+
+    // State to control the visibility of the time frame selector
+    const handleTimeFrameChange = (value) => {
+        setTimeFrame(value);
+    };
+
     
 }
