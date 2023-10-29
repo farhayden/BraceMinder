@@ -1,6 +1,6 @@
 //
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image, StyleSheet, Button, Picker } from "react-native";
+import { View, Text, TouchableOpacity, Image, StyleSheet, Button, RadioButton } from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import PushNotification from 'react-native-push-notification';
 import logo from "../assets/logo.png";
@@ -13,6 +13,8 @@ function RubberBands() {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [timeFrame, setTimeFrame] = useState(1); // Default time frame is 1 hour
+    const [showStartDatePicker, setShowStartDatePicker] = useState(false);
+    const [showEndDatePicker, setShowEndDatePicker] = useState(false); 
 
     // State to control the visibility of the date picker for start date
     const handleStartDateChange = (event, selectedDate) => {
@@ -99,14 +101,32 @@ function RubberBands() {
                 onChange={handleEndDateChange}
             />
             <Text style={{ marginTop: 20 }}>Select Time Frame (hours):</Text>
-            <Picker
-                selectedValue={timeFrame}
-                onValueChange={(itemValue) => handleTimeFrameChange(itemValue)}
-            >
-                <Picker.Item label="1 hour" value={1} />
-                <Picker.Item label="2 hours" value={2} />
-                <Picker.Item label="4 hours" value={4} />
-            </Picker>
+            <View style={styles.radioButtons}>
+                <View style={styles.radioButton}>
+                    <RadioButton
+                        value={1}
+                        status={timeFrame === 1 ? 'checked' : 'unchecked'}
+                        onPress={() => handleTimeFrameChange(1)}
+                    />
+                    <Text>1 hour</Text>
+                </View>
+                <View style={styles.radioButton}>
+                    <RadioButton
+                        value={2}
+                        status={timeFrame === 2 ? 'checked' : 'unchecked'}
+                        onPress={() => handleTimeFrameChange(2)}
+                    />
+                    <Text>2 hours</Text>
+                </View>
+                <View style={styles.radioButton}>
+                    <RadioButton
+                        value={4}
+                        status={timeFrame === 4 ? 'checked' : 'unchecked'}
+                        onPress={() => handleTimeFrameChange(4)}
+                    />
+                    <Text>4 hours</Text>
+                </View>
+            </View>
             <TouchableOpacity onPress={handleRubberBandNotifications}>
                 <View style={styles.button}>
                     <Button title="Schedule Custom Notifications" />
@@ -118,11 +138,12 @@ function RubberBands() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 0,
+        height: "100%",
         flexDirection: "column",
         backgroundColor: '#ffffff',
-        justifyContent: "space-around",
-        alignItems: "center",
+        justifyContent: "space-around", // Center the content vertically
+        alignItems: "center", // Center the content horizontally
     },
     logo: {
         width: 100,
@@ -137,6 +158,17 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontSize: 20,
+    },
+    radioButtons: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+        width: "100%",
+    },
+    radioButton: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
     },
 });
 
