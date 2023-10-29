@@ -33,5 +33,28 @@ function RubberBands() {
         setTimeFrame(value);
     };
 
-    
+    // function to schedule a local notification
+    const handleRubberBandNotifications = () => {
+        const currentTime = new Date();
+        const timeFrameInMinutes = timeFrame * 60;
+        const notifications = [];
+
+        while (startDate <= endDate) {
+            const randomTime = new Date(startDate.getTime() + Math.random() * timeFrameInMinutes * 60 * 1000);
+            if (randomTime <= endDate && randomTime > currentTime) {
+                const notificationData = {
+                    title: "Rubber Bands",
+                    message: "Remember to change your rubber bands!",
+                    time: randomTime,
+                };
+                scheduleLocalNotification(notificationData);
+                notifications.push(notificationData);
+            }
+            startDate.setMinutes(startDate.getMinutes() + timeFrameInMinutes);
+        }
+
+        if (notifications.length === 0) {
+            alert("No valid notifications were scheduled within the selected time frame.");
+        }
+    };
 }
