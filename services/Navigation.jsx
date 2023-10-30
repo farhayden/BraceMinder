@@ -10,8 +10,10 @@ import Reminders from "../screens/Reminders";
 import ToothBrushing from "../screens/ToothBrushing";
 import ProfileScreen from "../screens/ProfileScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
+import HowToScreen from "../screens/HowToScreen";
 
 import useProfileLink from "./ProfileLink";
+
 
 const HomeStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -34,6 +36,7 @@ function HomeStackScreen({ initialScreen }) {
         <HomeStack.Screen name="ToothBrushing" component={ToothBrushing} />
         <HomeStack.Screen name="Profile" component={ProfileScreen} />
         <HomeStack.Screen name="Edit Profile" component={EditProfileScreen} />
+        <HomeStack.Screen name="How To" component={HowToScreen} />
       </HomeStack.Navigator>
     );
 }
@@ -74,6 +77,23 @@ function BottomTabNav() {
             }}
           >
             {(props) => <HomeStackScreen {...props} initialScreen="Reminders" />}
+          </Tab.Screen>
+          <Tab.Screen
+            name="How To"
+            options={{
+              headerShown: false,
+              tabBarIcon: ({ color, size }) => (
+                <MaterialCommunityIcons
+                  name={HOMESCREENICON}
+                  color={color}
+                  size={size}
+                />
+              ),
+            }}
+          >
+            {(props) => (
+              <HomeStackScreen {...props} initialScreen="How To" />
+            )}
           </Tab.Screen>
         </Tab.Navigator>
       </NavigationContainer>
