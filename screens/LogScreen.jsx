@@ -1,7 +1,12 @@
+/**
+ * MyLogScreen component - Displays a gallery of the last 15 images taken.
+ * Allows the user to view each image in a modal and provides navigation to the Camera screen.
+ * 
+ * @module MyLogScreen
+ */
 import React, { useState, useContext, useLayoutEffect, useEffect } from 'react';
 import { Dimensions, FlatList, StyleSheet, View, Modal, TouchableOpacity, Image, Text } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-//import { MaterialCommunityIcons } from '@expo/vector-icons';
 import logo from "../assets/logo.png";
 import cameraIcon from "../assets/cameraIcon.png"
 import { styles } from '../assets/style.jsx';
@@ -18,7 +23,6 @@ const rowGapSize = 20; // Adjust this value to set the desired gap size between 
 const MyLogScreen = () => {
   const navigation = useNavigation();
   const { images } = useContext(ImageContext);
-  console.log('Fetched images:', images);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -39,7 +43,7 @@ const MyLogScreen = () => {
   }, [navigation]);
 
   // Get the last 15 images
-  const last15Images = images.slice(-15);
+  const last15Images = images.slice(-15).reverse();
 
   const openImageModal = (imageUri) => {
     setSelectedImage(imageUri);

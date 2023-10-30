@@ -27,7 +27,9 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import { BottomTabNav } from './services/Navigation';
 import ImageContext from './services/ImageContext';
+import { LogBox } from 'react-native';
 
+LogBox.ignoreLogs(['Found screens with the same name nested inside one another.']);
 
 function App() {
   const [images, setImages] = useState([]);
@@ -93,7 +95,7 @@ function App() {
     
 
 return(<>
-<ImageContext.Provider value={{ images, addImage, clearImages }}>
+<ImageContext.Provider value={{ images, setImages, addImage, clearImages }}>
   <View>
     {/* <Button title="Permissions" onPress={checkPermission}/> */}
   </View> 
