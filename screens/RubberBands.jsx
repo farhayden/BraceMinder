@@ -16,23 +16,34 @@ function RubberBands() {
     const [showStartDatePicker, setShowStartDatePicker] = useState(false);
     const [showEndDatePicker, setShowEndDatePicker] = useState(false); 
 
-    // State to control the visibility of the date picker for start date
+    const openStartDatePicker = () => {
+        setShowStartDatePicker(true);
+    };
+
+    const openEndDatePicker = () => {
+        setShowEndDatePicker(true);
+    };
+
+    const closeStartDatePicker = () => {
+        setShowStartDatePicker(false);
+    };
+
+    const closeEndDatePicker = () => {
+        setShowEndDatePicker(false);
+    };
+
+    const handleEndDateChange = (selectedDate) => {
+        if (selectedDate !== undefined) {
+            setEndDate(selectedDate);
+            closeEndDatePicker(); // Close the date picker after selecting a date
+        }
+    };
+
     const handleStartDateChange = (event, selectedDate) => {
         if (selectedDate !== undefined) {
             setStartDate(selectedDate);
+            closeStartDatePicker(); // Close the date picker after selecting a date
         }
-    };
-
-    // State to control the visibility of the date picker for end date
-    const handleEndDateChange = (event, selectedDate) => {
-        if (selectedDate !== undefined) {
-            setEndDate(selectedDate);
-        }
-    };
-
-    // State to control the visibility of the time frame selector
-    const handleTimeFrameChange = (value) => {
-        setTimeFrame(value);
     };
 
     // function to schedule a local notification
@@ -62,7 +73,7 @@ function RubberBands() {
 
     function scheduleLocalNotification(reminderData) {
         PushNotification.localNotificationSchedule({
-            channelId: "CustomNotification-channel-id",
+            channelId: "BraceMinder-channel-id",
             title: reminderData.title,
             message: reminderData.message,
             color: "blue",
@@ -71,37 +82,41 @@ function RubberBands() {
             foreground: true,
             date: reminderData.time,
         });
-    }
+    };
 
     return (
         <View style={styles.container}>
             <Image source={LOGO} style={styles.logo} />
-            <TouchableOpacity>
-                <View style={styles.button}>
-                    <Button style={styles.button} title="Set Start Date" onPress={() => setShowStartDatePicker(true)}/>
+            <TouchableOpacity onPress={openStartDatePicker}>
+            	<View style={styles.button}>
+                    <Button title="Set Start Date" />
                 </View>
             </TouchableOpacity>
-            <DateTimePicker
+            {showStartDatePicker && (
+                <DateTimePicker
                 value={startDate}
-                mode="datetime"
+                mode="date"
                 is24Hour={false}
                 display="spinner"
                 onChange={handleStartDateChange}
             />
-            <TouchableOpacity>
-                <View style={styles.button}>
-                    <Button style={styles.button} title="Set End Date" onPress={() => setShowEndDatePicker(true)}/>
-                </View>
-            </TouchableOpacity>
+        )}
+        <TouchableOpacity onPress={openEndDatePicker}>
+            <View style={styles.button}>
+                <Button title="Set End Date" />
+            </View>
+        </TouchableOpacity>
+        {showEndDatePicker && (
             <DateTimePicker
                 value={endDate}
-                mode="datetime"
+                mode="date"
                 is24Hour={false}
                 display="spinner"
                 onChange={handleEndDateChange}
             />
-            <Text style={{ marginTop: 20 }}>Select Time Frame (hours):</Text>
-            <View style={styles.radioButtons}>
+        )}
+        <Text style={{ marginTop: 20 }}>Select Time Frame (hours):</Text>
+            {/* <View style={styles.radioButtons}>
                 <View style={styles.radioButton}>
                     <RadioButton
                         value={1}
@@ -126,7 +141,7 @@ function RubberBands() {
                     />
                     <Text>4 hours</Text>
                 </View>
-            </View>
+            </View> */}
             <TouchableOpacity onPress={handleRubberBandNotifications}>
                 <View style={styles.button}>
                     <Button title="Schedule Custom Notifications" />
@@ -134,7 +149,7 @@ function RubberBands() {
             </TouchableOpacity>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
