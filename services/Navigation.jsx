@@ -7,6 +7,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import HomeScreen from "../screens/HomeScreen";
 import Reminders from "../screens/Reminders";
 import ToothBrushing from "../screens/ToothBrushing";
+import HowToScreen from "../screens/HowToScreen";
 
 const HomeStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -23,6 +24,7 @@ function HomeStackScreen({ initialScreen }) {
         <HomeStack.Screen name="BraceMinder" component={HomeScreen} />
         <HomeStack.Screen name="Reminders" component={Reminders} />
         <HomeStack.Screen name="ToothBrushing" component={ToothBrushing} />
+        <HomeStack.Screen name="How To" component={HowToScreen} />
       </HomeStack.Navigator>
     );
 }
@@ -63,6 +65,23 @@ function BottomTabNav() {
             }}
           >
             {(props) => <HomeStackScreen {...props} initialScreen="Reminders" />}
+          </Tab.Screen>
+          <Tab.Screen
+            name="How To"
+            options={{
+              headerShown: false,
+              tabBarIcon: ({ color, size }) => (
+                <MaterialCommunityIcons
+                  name={HOMESCREENICON}
+                  color={color}
+                  size={size}
+                />
+              ),
+            }}
+          >
+            {(props) => (
+              <HomeStackScreen {...props} initialScreen="How To" />
+            )}
           </Tab.Screen>
         </Tab.Navigator>
       </NavigationContainer>
