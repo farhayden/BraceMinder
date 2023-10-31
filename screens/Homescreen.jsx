@@ -1,10 +1,16 @@
 import { FlatList, StyleSheet, Text, View, Button, Image } from "react-native";
 
 import logo from "../assets/logo.png";
+import useProfileLink from "../services/ProfileLink";
+import { useNavigation } from '@react-navigation/native';
 
 const LOGO = logo;
 
 const HomeScreen = () => {
+
+  const navigation = useNavigation();
+  useProfileLink(navigation);
+
     return (
       <View style={styles.container}>
         <Image source={LOGO} style={styles.logo} />

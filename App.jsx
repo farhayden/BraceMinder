@@ -28,6 +28,7 @@ import {
 import { BottomTabNav } from './services/Navigation';
 import ImageContext from './services/ImageContext';
 
+import { ProfileProvider } from './services/ProfileLink';
 
 function App() {
   const [images, setImages] = useState([]);
@@ -93,12 +94,14 @@ function App() {
     
 
 return(<>
+ <ProfileProvider>
   <View>
     {/* <Button title="Permissions" onPress={checkPermission}/> */}
   </View> 
   <ImageContext.Provider value={{ images, addImage, clearImages }}>
   <BottomTabNav/>
   </ImageContext.Provider>
+  <BottomTabNav/></ProfileProvider>
 </>);
 }
 
