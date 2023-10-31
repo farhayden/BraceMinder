@@ -19,6 +19,7 @@ import MyLogIcon from "../assets/MyLogIcon.png";
 
 import useProfileLink from "./ProfileLink";
 
+import RubberBands from "../screens/RubberBands";
 
 const HomeStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -44,6 +45,7 @@ function HomeStackScreen({ initialScreen }) {
         <HomeStack.Screen name="How To" component={HowToScreen} />
         <HomeStack.Screen name="My Progress" component={MyLogScreen} />
         <HomeStack.Screen name="Camera" component={CameraScreen} />
+        <HomeStack.Screen name="RubberBands" component={RubberBands} />
       </HomeStack.Navigator>
     );
 }
