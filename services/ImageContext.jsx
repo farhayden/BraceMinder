@@ -7,6 +7,7 @@ import { createContext } from 'react';
 
 const ImageContext = createContext({
   images: [],
+  setImages: () => {},
   addImage: (image) => {},
   clearImages: () => {},
 });

@@ -6,13 +6,14 @@ import { useNavigation } from '@react-navigation/native';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 
-import HomeScreen from "../screens/HomeScreen";
+//import HomeScreen from "../screens/HomeScreen";
 import Reminders from "../screens/Reminders";
 import ToothBrushing from "../screens/ToothBrushing";
 import ProfileScreen from "../screens/ProfileScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import HowToScreen from "../screens/HowToScreen";
 import MyLogScreen from "../screens/LogScreen";
+import CameraScreen from "../screens/CameraScreen";
 
 import MyLogIcon from "../assets/MyLogIcon.png";
 
@@ -35,13 +36,14 @@ function HomeStackScreen({ initialScreen }) {
         initialRouteName={initialScreen}
         screenOptions={defaultScreenOptions}
       >
-        <HomeStack.Screen name="BraceMinder" component={HomeScreen} />
+        {/* <HomeStack.Screen name="BraceMinder" component={HomeScreen} /> */}
         <HomeStack.Screen name="Reminders" component={Reminders} />
         <HomeStack.Screen name="ToothBrushing" component={ToothBrushing} />
         <HomeStack.Screen name="Profile" component={ProfileScreen} />
         <HomeStack.Screen name="Edit Profile" component={EditProfileScreen} />
         <HomeStack.Screen name="How To" component={HowToScreen} />
         <HomeStack.Screen name="My Progress" component={MyLogScreen} />
+        <HomeStack.Screen name="Camera" component={CameraScreen} />
       </HomeStack.Navigator>
     );
 }
