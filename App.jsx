@@ -5,7 +5,7 @@
  * @format
  */
 import scheduleLocalNotification from './services/RemindersService';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ScrollView,
   StatusBar,
@@ -26,8 +26,20 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import { BottomTabNav } from './services/Navigation';
+import ImageContext from './services/ImageContext';
+
 
 function App() {
+  const [images, setImages] = useState([]);
+
+  const addImage = (image) => {
+    console.log("Adding image:", image);
+    setImages(prev => [...prev, image]);
+  };
+
+  const clearImages = () => {
+    setImages([]);
+  };
 
   const checkPermission = async () => {
     const enabled = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
@@ -84,7 +96,9 @@ return(<>
   <View>
     {/* <Button title="Permissions" onPress={checkPermission}/> */}
   </View> 
+  <ImageContext.Provider value={{ images, addImage, clearImages }}>
   <BottomTabNav/>
+  </ImageContext.Provider>
 </>);
 }
 
