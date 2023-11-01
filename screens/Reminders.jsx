@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import scheduleLocalNotification from "../services/RemindersService";
 import logo from "../assets/logo.png";
 import tasks from "../data/tasks";
+import useProfileLink from "../services/ProfileLink";
 
 const LOGO = logo;
 
@@ -13,7 +14,7 @@ const LOGO = logo;
 
 function RemindersScreen() {
     const navigation = useNavigation();
-
+    useProfileLink(navigation);
     const [taskSwitches, setTaskSwitches] = useState({});
 
     const handleSwitch = (taskId, value) => {

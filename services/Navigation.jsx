@@ -15,6 +15,10 @@ import HowToScreen from "../screens/HowToScreen";
 import MyLogScreen from "../screens/LogScreen";
 import CameraScreen from "../screens/CameraScreen";
 
+//Import icons
+import HomeIcon from "../assets/HomeIcon.png";
+import AlarmIcon from "../assets/AlarmIcon.png";
+import HowToIcon from "../assets/HowToIcon.png";
 import MyLogIcon from "../assets/MyLogIcon.png";
 
 import useProfileLink from "./ProfileLink";
@@ -57,11 +61,10 @@ function BottomTabNav() {
             options={{
               headerShown: false,
               tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons
-                  name={HOMESCREENICON}
-                  color={color}
-                  size={size}
-                />
+                <Image
+                source={HomeIcon}
+                style={{ width: size, height: size }}
+              />
               ),
             }}
           >
@@ -75,11 +78,10 @@ function BottomTabNav() {
             options={{
               headerShown: false,
               tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons
-                  name={REMINDERSCREENICON}
-                  color={color}
-                  size={size}
-                />
+                <Image
+                source={AlarmIcon}
+                style={{ width: size, height: size }}
+              />
               ),
             }}
           >
@@ -90,11 +92,10 @@ function BottomTabNav() {
             options={{
               headerShown: false,
               tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons
-                  name={HOMESCREENICON}
-                  color={color}
-                  size={size}
-                />
+                <Image
+              source={HowToIcon}
+              style={{ width: size, height: size }}
+            />
               ),
             }}
           >

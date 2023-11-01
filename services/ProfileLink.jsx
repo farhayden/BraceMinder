@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { TouchableOpacity, Image, StyleSheet } from 'react-native';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import styles from "../assets/style.jsx";
 
 import profileIcon from "../assets/profileIcon.png"
 
@@ -40,7 +40,8 @@ function useProfileLink(navigation) {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-          <Image source={PROFILE} style={styles.icon}/>
+          <Image source={PROFILE}/>
+           {/* style={styles.icon} */}
         </TouchableOpacity>
       ),
     });
@@ -48,11 +49,11 @@ function useProfileLink(navigation) {
 }
 
 
-const styles = StyleSheet.create({
-    icon: {
-      flex: 1,
-      padding: 24,
+// const styles = StyleSheet.create({
+//     icon: {
+//       flex: 1,
+//       padding: 24,
       
-    }
-});
+//     }
+// });
 export default useProfileLink;
