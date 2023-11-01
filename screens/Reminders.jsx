@@ -8,6 +8,9 @@ import logo from "../assets/logo.png";
 import tasks from "../data/tasks";
 
 const LOGO = logo;
+import logo from "../assets/logo.png";
+import tasks from "../data/tasks";
+
 
 function RemindersScreen() {
     const navigation = useNavigation();
@@ -25,32 +28,36 @@ function RemindersScreen() {
         navigation.navigate(screenName); // Navigate to the screen with the specified screenName
     };
       
-    return (<>
+    return (
         
         <View style={styles.container}>
-            <Image source={LOGO} style={styles.logo} />
-            <FlatList
-                data={tasks}
-                renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => handlePress(item.key)} style={styles.listItem}>
-                        <Text style={styles.item}>{item.key}</Text>
-                        <Switch
-                            style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }}
-                            trackColor={{ false: "#ffa500", true: "#50C878" }}
-                            thumbColor={taskSwitches[item.id] ? "#ffffff" : "#fffffff"}
-                            ios_backgroundColor="#3e3e3e"
-                            onValueChange={(value) => handleSwitch(item.id, value)}
-                            value={taskSwitches[item.id] || false}  // This line makes sure each switch has its own unique state
-                        />
-                    </TouchableOpacity>
-                )}
+        <Image source={LOGO} style={styles.logo} />
+      <FlatList
+        data={tasks}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => handlePress(item)} style={styles.listItem}>
+            <Text style={styles.item}>{item.key}</Text>
+            <Switch
+              style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }}
+              trackColor={{ false: "#ffa500", true: "#50C878" }}
+              thumbColor={taskSwitches[item.id] ? "#ffffff" : "#fffffff"}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={(value) => handleSwitch(item.id, value)}
+              value={taskSwitches[item.id] || false}  // This line makes sure each switch has its own unique state
             />
-        </View>
-    </>);
-}
+          </TouchableOpacity>
+        )}
+      />
+    </View>
+
+    );
+        }
+
 const styles = StyleSheet.create({
     container: {
         flex: 0,
+        //padding: 20,
+        backgroundColor: '#ffffff',
         height: "100%",
         flexDirection: "column",
         backgroundColor: '#ffffff',
@@ -61,7 +68,16 @@ const styles = StyleSheet.create({
         width: 100, // Set a width for the logo
         height: 100, // Set a height for the logo (you can adjust as needed)
         resizeMode: "contain", // Keep the logo's aspect ratio
-        marginBottom: 20
+        marginBottom: 80
+    },
+    
+    button: {
+        borderRadius: 15,
+        color: 'white',
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 20,
     },
     
     button: {
