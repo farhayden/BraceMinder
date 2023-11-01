@@ -101,6 +101,7 @@ export default function CameraScreen() {
                   console.log('Images :>> ', images);
                   return [...prevImages, `file://${file.path}`];
                 });
+                setShowCamera(true);
               } catch (error) {
                 console.error('Failed to save the image', error);
               }

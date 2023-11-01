@@ -8,8 +8,7 @@ import logo from "../assets/logo.png";
 import tasks from "../data/tasks";
 
 const LOGO = logo;
-import logo from "../assets/logo.png";
-import tasks from "../data/tasks";
+
 
 
 function RemindersScreen() {
@@ -25,7 +24,7 @@ function RemindersScreen() {
     };
   
     const handlePress = (screenName) => {
-        navigation.navigate(screenName); // Navigate to the screen with the specified screenName
+        navigation.navigate(screenName.key); // Navigate to the screen with the specified screenName
     };
       
     return (
