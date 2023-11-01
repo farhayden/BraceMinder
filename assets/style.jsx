@@ -47,6 +47,11 @@ padding:10,
     padding: 5,
     width: '100%', // Use full width of the container
   },
+      icon: {
+      flex: 1,
+      padding: 24,
+      
+    },
   item: {
     padding: 10,
     fontSize: 18,

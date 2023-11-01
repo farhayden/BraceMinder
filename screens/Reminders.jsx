@@ -3,9 +3,25 @@ import { View, Text, TouchableOpacity, Button, StyleSheet } from "react-native";
 import ToothBrushing from "./ToothBrushing";
 import { useNavigation } from "@react-navigation/native";
 import scheduleLocalNotification from "../services/RemindersService";
+import logo from "../assets/logo.png";
+import tasks from "../data/tasks";
+import useProfileLink from "../services/ProfileLink";
+
+const LOGO = logo;
+
+
 
 function RemindersScreen() {
     const navigation = useNavigation();
+    useProfileLink(navigation);
+    const [taskSwitches, setTaskSwitches] = useState({});
+
+    const handleSwitch = (taskId, value) => {
+        setTaskSwitches(prevSwitches => ({
+          ...prevSwitches,
+          [taskId]: value // Using the task ID as the key to store each task's switch state
+        }));
+    };
   
     const handlePress = () => {
       navigation.navigate('ToothBrushing'); // Navigate to ToothBrushing screen

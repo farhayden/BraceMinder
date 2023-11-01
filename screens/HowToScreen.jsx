@@ -2,16 +2,16 @@ import { Image, FlatList, StyleSheet, Text, View, TouchableOpacity } from "react
 import { useNavigation } from '@react-navigation/native';
 import { Linking } from 'react-native';
 import {howToMenu} from "../data/menus";
-import { styles } from '../assets/style.js';
+import { styles } from '../assets/style.jsx';
 import logo from "../assets/logo.png";
-//import useProfileLink from "../components/ProfileLink";
+import useProfileLink from "../services/ProfileLink";
 
 const LOGO = logo;
 
 const HowToScreen = () => {
   const navigation = useNavigation();
 
-  //useProfileLink(navigation);
+  useProfileLink(navigation);
 
   const handlePress = (item) => {
     if (item.link) {

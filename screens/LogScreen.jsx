@@ -5,8 +5,10 @@ import { useNavigation } from '@react-navigation/native';
 import logo from "../assets/logo.png";
 import { styles } from '../assets/style.jsx';
 import ImageContext from '../services/ImageContext';
-//import useProfileLink from "../components/ProfileLink.js";
+import useProfileLink from "../services/ProfileLink";
+import profileIcon from "../assets/profileIcon.png";
 
+const PROFILE = profileIcon;
 const LOGO = logo;
 const screenWidth = Dimensions.get('window').width;
 const imageSize = screenWidth / 5;
@@ -15,6 +17,7 @@ const rowGapSize = 20; // Adjust this value to set the desired gap size between 
 
 const MyLogScreen = () => {
   const navigation = useNavigation();
+  useProfileLink(navigation);
   const { images } = useContext(ImageContext);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -28,6 +31,27 @@ const MyLogScreen = () => {
 //       ),
 //     });
 //   }, [navigation]);
+
+  useEffect(() => {
+    console.log("Images changed, rerendering MyLogScreen:", images);
+  }, [images]);
+  
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+        headerLeft: () => (
+          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <Image source={PROFILE}/> 
+            {/* style={styles.icon} */}
+          </TouchableOpacity>
+        ),
+      headerRight: () => (
+        <TouchableOpacity onPress={() => navigation.navigate('Camera')}>
+          <Image source={CAMERA}/>
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
 
   // Get the last 15 images
   const last15Images = images.slice(-15);
