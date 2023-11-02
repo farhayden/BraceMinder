@@ -7,7 +7,9 @@ import { styles } from '../assets/style.jsx';
 import ImageContext from '../services/ImageContext';
 import useProfileLink from "../services/ProfileLink";
 import profileIcon from "../assets/profileIcon.png";
+import Camera from "../assets/Camera.png";
 
+const CAMERA = Camera
 const PROFILE = profileIcon;
 const LOGO = logo;
 const screenWidth = Dimensions.get('window').width;
@@ -22,19 +24,16 @@ const MyLogScreen = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-//   useLayoutEffect(() => {
-//     navigation.setOptions({
-//       headerRight: () => (
-//         <TouchableOpacity onPress={() => navigation.navigate('Camera')} style={{ flexDirection: 'row', alignItems: 'center' }}>
-//           <MaterialCommunityIcons name="camera" size={40} color="#FFFFFF"/>
-//         </TouchableOpacity>
-//       ),
-//     });
-//   }, [navigation]);
+  // useLayoutEffect(() => {
+  //   navigation.setOptions({
+  //     headerRight: () => (
+  //       <TouchableOpacity onPress={() => navigation.navigate('Camera')} style={{ flexDirection: 'row', alignItems: 'center' }}>
+  //         <MaterialCommunityIcons name="camera" size={40} color="#FFFFFF"/>
+  //       </TouchableOpacity>
+  //     ),
+  //   });
+  // }, [navigation]);
 
-  useEffect(() => {
-    console.log("Images changed, rerendering MyLogScreen:", images);
-  }, [images]);
   
 
   useLayoutEffect(() => {
