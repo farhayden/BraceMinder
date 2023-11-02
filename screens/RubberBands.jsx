@@ -1,8 +1,9 @@
 //
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet, Button, RadioButton } from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import PushNotification from 'react-native-push-notification';
+import RadioGroup from 'react-native-radio-buttons-group';
 import logo from "../assets/logo.png";
 
 const LOGO = logo;
@@ -15,16 +16,34 @@ function RubberBands() {
     const [timeFrame, setTimeFrame] = useState(1); // Default time frame is 1 hour
     const [showStartDatePicker, setShowStartDatePicker] = useState(false);
     const [showEndDatePicker, setShowEndDatePicker] = useState(false); 
+    const [selectedId, setSelectedId] = useState();
+
+    useEffect(() => {
+        alert("Startdate changed!")
+    }, [startDate])
 
     const openStartDatePicker = () => {
+        // DateTimePicker.open({
+        //     value: startDate,
+        //     onChange: handleStartDateChange,
+        //     mode: "date",
+        //     is24Hour: false,
+        // });
         setShowStartDatePicker(true);
     };
 
     const openEndDatePicker = () => {
+        // DateTimePicker.open({
+        //     value: endDate,
+        //     onChange: handleEndDateChange,
+        //     mode: "date",
+        //     is24Hour: false,
+        // });
         setShowEndDatePicker(true);
     };
 
     const closeStartDatePicker = () => {
+
         setShowStartDatePicker(false);
     };
 
@@ -32,28 +51,93 @@ function RubberBands() {
         setShowEndDatePicker(false);
     };
 
-    const handleEndDateChange = (selectedDate) => {
-        if (selectedDate !== undefined) {
-            setEndDate(selectedDate);
-            closeEndDatePicker(); // Close the date picker after selecting a date
+    const handleStartDateChange = (event, selectedDate) => {
+        // console.log(selectedDate);
+        // if (event.type === 'set') {
+        //     if (endDate && selectedDate >= endDate) {
+        //         alert("Start date cannot be on or after the end date.");
+        //     } else {
+        //         setStartDate(selectedDate);
+        //     }
+        // } else if (event.type === 'dismissed') {
+        //     setStartDate(undefined);
+        // } else {
+        //     setStartDate(selectedDate);
+        // }
+        if (selectedDate) {
+            if(endDate && selectedDate >= endDate) {
+                alert("Start date cannot be on or after the end date.");
+            } else {
+                setStartDate(selectedDate);
+            }
         }
+        closeStartDatePicker();
     };
 
-    const handleStartDateChange = (event, selectedDate) => {
-        if (selectedDate !== undefined) {
-            setStartDate(selectedDate);
-            closeStartDatePicker(); // Close the date picker after selecting a date
+    const handleEndDateChange = (event, selectedDate) => {
+        // if (event.type === 'set') {
+        //     if (startDate && selectedDate <= startDate) {
+        //         alert("End date cannot be on or before the start date.");
+        //     } else {
+        //         setEndDate(selectedDate);
+        //     }
+        // } else if (event.type === 'dismissed') {
+        //     setEndDate(undefined);
+        // }
+        if (selectedDate){
+            if (startDate && selectedDate <= startDate) {
+                alert("End date cannot be on or before the start date.");
+            } else {
+                setEndDate(selectedDate);
+            }
         }
+        closeEndDatePicker();
     };
+
+    // const handleDateChange = (event, selectedDate, isStartDate) => {
+    //     const currentDate = selectedDate || (isStartDate ? startDate : endDate);
+    
+    //     if (event.type === 'set') {
+    //         if (isStartDate) {
+    //             if (currentDate >= endDate) {
+    //                 alert("Start date cannot be on or after the end date.");
+    //             } else {
+    //                 setStartDate(currentDate);
+    //             }
+    //         } else {
+    //             if (currentDate <= startDate) {
+    //                 alert("End date cannot be on or before the start date.");
+    //             } else {
+    //                 setEndDate(currentDate);
+    //             }
+    //         }
+    //     } else if (event.type === 'dismissed') {
+    //         isStartDate ? closeStartDatePicker() : closeEndDatePicker();
+    //     }
+    // };
 
     // function to schedule a local notification
     const handleRubberBandNotifications = () => {
+        if (!startDate) {
+            alert("Please select a start date.");
+            return;
+        }
+        if (!endDate) {
+            alert("Please select an end date.");
+            return;
+        }
+
         const currentTime = new Date();
         const timeFrameInMinutes = timeFrame * 60;
         const notifications = [];
-
+        console.log("startDate <= endDate", startDate, "<=", endDate, "==", startDate <= endDate)
         while (startDate <= endDate) {
+            console.log("Iterating while startDate <= endDate.");
+            console.log(startDate, "<=", endDate, "==", startDate <= endDate)
             const randomTime = new Date(startDate.getTime() + Math.random() * timeFrameInMinutes * 60 * 1000);
+            console.log('randomTime :>> ', randomTime);
+
+            console.log("randomTime <= endDate && randomTime > currentTime", randomTime, "<=", endDate, "&&", randomTime, ">", currentTime);
             if (randomTime <= endDate && randomTime > currentTime) {
                 const notificationData = {
                     title: "Rubber Bands",
@@ -65,6 +149,8 @@ function RubberBands() {
             }
             startDate.setMinutes(startDate.getMinutes() + timeFrameInMinutes);
         }
+
+        alert("Notifications have been scheduled!");
 
         if (notifications.length === 0) {
             alert("No valid notifications were scheduled within the selected time frame.");
@@ -84,12 +170,30 @@ function RubberBands() {
         });
     };
 
+    const radioButtons = useMemo(() => ([
+        {
+            id: '1',
+            label: 'every 1 hour',
+            value: timeFrame === 1,
+        },
+        {
+            id: '2',
+            label: 'every 2 hours',
+            value: timeFrame === 2,
+        },
+        {
+            id: '4',
+            label: 'every 4 hours',
+            value: timeFrame === 4,
+        }
+    ]), []);
+
     return (
         <View style={styles.container}>
             <Image source={LOGO} style={styles.logo} />
-            <TouchableOpacity onPress={openStartDatePicker}>
+            <TouchableOpacity>
             	<View style={styles.button}>
-                    <Button title="Set Start Date" />
+                    <Button title="Set Start Date" onPress={openStartDatePicker} />
                 </View>
             </TouchableOpacity>
             {showStartDatePicker && (
@@ -101,9 +205,9 @@ function RubberBands() {
                 onChange={handleStartDateChange}
             />
         )}
-        <TouchableOpacity onPress={openEndDatePicker}>
+        <TouchableOpacity >
             <View style={styles.button}>
-                <Button title="Set End Date" />
+                <Button title="Set End Date" onPress= {openEndDatePicker} />
             </View>
         </TouchableOpacity>
         {showEndDatePicker && (
@@ -115,9 +219,16 @@ function RubberBands() {
                 onChange={handleEndDateChange}
             />
         )}
-        <Text style={{ marginTop: 20 }}>Select Time Frame (hours):</Text>
-            {/* <View style={styles.radioButtons}>
-                <View style={styles.radioButton}>
+        <Text>Select Time Frame for Random Notifications:</Text>
+            <View>
+                <RadioGroup
+                    radioButtons={radioButtons}
+                    onPress={setSelectedId}
+                    selectedId={selectedId}
+                    layout="column"
+                    
+                />
+                {/* <View style={styles.radioButton}>
                     <RadioButton
                         value={1}
                         status={timeFrame === 1 ? 'checked' : 'unchecked'}
@@ -141,10 +252,11 @@ function RubberBands() {
                     />
                     <Text>4 hours</Text>
                 </View>
-            </View> */}
-            <TouchableOpacity onPress={handleRubberBandNotifications}>
+                </RadioGroup> */}
+            </View>
+            <TouchableOpacity >
                 <View style={styles.button}>
-                    <Button title="Schedule Custom Notifications" />
+                    <Button title="Schedule Custom Notifications" onPress={handleRubberBandNotifications} />
                 </View>
             </TouchableOpacity>
         </View>
@@ -175,7 +287,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     radioButtons: {
-        flexDirection: "row",
+        //flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
         width: "100%",
