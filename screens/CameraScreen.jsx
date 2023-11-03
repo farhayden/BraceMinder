@@ -1,5 +1,6 @@
 /**
  * CameraScreen component - Provides functionality to take a photo, flip the camera, and handle camera permissions.
+ * Allows users to preview, save or retake the photo after capturing. The taken photo can be saved to the device's gallery.
  *
  * @module CameraScreen
  */
@@ -20,11 +21,9 @@ import {
   useCameraDevices,
   useCameraPermission,
 } from 'react-native-vision-camera';
-
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 
 import ImageContext from '../services/ImageContext';
-
 
 import CameraButton from '../assets/CameraButton.png';
 import FlipCamera from '../assets/FlipCamera.png';
@@ -92,21 +91,14 @@ export default function CameraScreen() {
             onPress: async () => {
               try {
                 await CameraRoll.save(`file://${file.path}`, {type: 'photo'});
-                // Update the context with the new image
-                setImages(prevImages => {
-                  console.log(
-                    'Adding new image to state:',
-                    `file://${file.path}`,
-                  );
-                  console.log('Images :>> ', images);
-                  return [...prevImages, `file://${file.path}`];
-                });
+
+                addImage(`file://${file.path}`);
+                setShowCamera(true);
               } catch (error) {
                 console.error('Failed to save the image', error);
               }
             },
           },
-          //style: 'default',
         ],
         {
           cancelable: false, // user must select one of the options
@@ -143,13 +135,13 @@ export default function CameraScreen() {
             />
 
             <TouchableOpacity onPress={flipCamera} style={styles.flipButton}>
-            <Image source={FlipCamera}  />
+              <Image source={FlipCamera} />
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={takePicture}
               style={styles.takePhotoButton}>
-               <Image source={CameraButton}  />
+              <Image source={CameraButton} />
             </TouchableOpacity>
           </View>
         ) : (

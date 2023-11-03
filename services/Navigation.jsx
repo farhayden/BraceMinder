@@ -2,10 +2,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { Image } from 'react-native';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { useNavigation } from '@react-navigation/native';
 
 
-//import HomeScreen from "../screens/HomeScreen";
+//Import screens
+import HomeScreen from "../screens/HomeScreen";
 import Reminders from "../screens/Reminders";
 import ToothBrushing from "../screens/ToothBrushing";
 import HowToScreen from "../screens/HowToScreen";
@@ -14,11 +15,12 @@ import CameraScreen from "../screens/CameraScreen";
 
 import MyLogIcon from "../assets/MyLogIcon.png";
 
+//Import services
+import useProfileLink from "./ProfileLink";
+
+
 const HomeStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-
-const HOMESCREENICON = "";
-const REMINDERSCREENICON = "";
 
 function HomeStackScreen({ initialScreen }) {
     return (
