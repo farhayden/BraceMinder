@@ -16,37 +16,36 @@ import profileIcon from "../assets/profileIcon.png";
 
 const PROFILE = profileIcon;
 const LOGO = logo;
-const CAMERA = cameraIcon
-const screenWidth = Dimensions.get('window').width;
-const imageSize = screenWidth / 5;
+const CAMERA = cameraIcon;
+const screenWidth = Dimensions.get('window').width;  // Get the width of the device screen
+const imageSize = screenWidth / 5;  // Calculate the image size based on screen width
 
-const rowGapSize = 20; // Adjust this value to set the desired gap size between rows
+const rowGapSize = 20;  // Space between each row in the image gallery
 
 const MyLogScreen = () => {
   const navigation = useNavigation();
   useProfileLink(navigation);
-  const { images, addImage} = useContext(ImageContext);
+  const { images, addImage } = useContext(ImageContext);  // Image context provides a list of images and method to add images
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);  // Modal visibility state
+  const [selectedImage, setSelectedImage] = useState(null);  // Currently selected image to show in the modal
 
-
+  // Log when images change
   useEffect(() => {
     console.log("Images changed, rerendering MyLogScreen:", images);
   }, [images]);
-  
 
+  // Update navigation header buttons
   useLayoutEffect(() => {
     navigation.setOptions({
-        headerLeft: () => (
-          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-            <Image source={PROFILE}/> 
-            {/* style={styles.icon} */}
-          </TouchableOpacity>
-        ),
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+          <Image source={PROFILE} />
+        </TouchableOpacity>
+      ),
       headerRight: () => (
         <TouchableOpacity onPress={() => navigation.navigate('Camera')}>
-          <Image source={CAMERA}/>
+          <Image source={CAMERA} />
         </TouchableOpacity>
       ),
     });
@@ -55,11 +54,13 @@ const MyLogScreen = () => {
   // Get the last 15 images
   const last15Images = images.slice(-15).reverse();
 
+  // Open image modal with the selected image
   const openImageModal = (imageUri) => {
     setSelectedImage(imageUri);
     setIsModalVisible(true);
   };
 
+  // Close the image modal
   const closeImageModal = () => {
     setSelectedImage(null);
     setIsModalVisible(false);
@@ -69,13 +70,14 @@ const MyLogScreen = () => {
     <View style={styles.logContainer}>
       <Image source={LOGO} style={styles.logo} />
       
+      {/* Display images in a grid */}
       <FlatList
-       keyExtractor={(item) => item}  
-        data={last15Images} // Use the last 15 images
+        keyExtractor={(item) => item}  
+        data={last15Images}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => openImageModal(item)}
-            style={{ marginBottom: rowGapSize }} // Add marginBottom to create a gap between rows
+            style={{ marginBottom: rowGapSize }}
           >
             <Image source={{ uri: item }} style={{ width: imageSize, height: imageSize }} />
           </TouchableOpacity>
@@ -83,6 +85,7 @@ const MyLogScreen = () => {
         numColumns={5}
       />
 
+      {/* Image modal */}
       <Modal
         animationType="slide"
         transparent={false}

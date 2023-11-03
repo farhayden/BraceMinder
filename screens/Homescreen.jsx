@@ -1,36 +1,46 @@
-import { FlatList, StyleSheet, Text, View, Button, Image } from "react-native";
+/**
+ * HomeScreen component - Displays the app's main welcome message.
+ * Provides a description of the app's purpose and functionality.
+ * 
+ * @module HomeScreen
+ */
 
-import logo from "../assets/logo.png";
-import useProfileLink from "../services/ProfileLink";
+// Importing necessary modules
+import { StyleSheet, Text, View, Image } from "react-native";
+import logo from "../assets/logo.png";  // Logo for the screen
+import useProfileLink from "../services/ProfileLink";  // Service to manage profile link
 import { useNavigation } from '@react-navigation/native';
 
 const LOGO = logo;
 
+// HomeScreen component definition
 const HomeScreen = () => {
+  const navigation = useNavigation();  // Get the navigation prop to navigate between screens
+  useProfileLink(navigation);  // Service function to link the profile 
 
-  const navigation = useNavigation();
-  useProfileLink(navigation);
-
-    return (
-      <View style={styles.container}>
-        <Image source={LOGO} style={styles.logo} />
-        <Text style={styles.text}>
-          The app is the ultimate companion of your orthodontic journey, whether
-          you're using braces or clear aligners. 
-          </Text>
-          <Text style={styles.text}>
-          The app combines intuitive
-          reminders and progress tracking, making your path to a perfect smile
-          smoother than ever before. 
-          </Text>
-          <Text style={styles.text}>
-          Embrace orthodontics with confidence and
-          achieve the smile you've always dreamed of.
-        </Text>
-      </View>
-    );
+  // Render the HomeScreen component
+  return (
+    <View style={styles.container}>
+      <Image source={LOGO} style={styles.logo} />
+      {/* Welcome and description text */}
+      <Text style={styles.text}>
+        The app is the ultimate companion of your orthodontic journey, whether
+        you're using braces or clear aligners. 
+      </Text>
+      <Text style={styles.text}>
+        The app combines intuitive
+        reminders and progress tracking, making your path to a perfect smile
+        smoother than ever before. 
+      </Text>
+      <Text style={styles.text}>
+        Embrace orthodontics with confidence and
+        achieve the smile you've always dreamed of.
+      </Text>
+    </View>
+  );
 };
 
+// Styles for the HomeScreen component
 const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -62,5 +72,5 @@ const styles = StyleSheet.create({
     }
 });
 
+// Export the HomeScreen component
 export default HomeScreen;
-  

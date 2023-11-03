@@ -3,9 +3,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 
+//Import screens
 import HomeScreen from "../screens/HomeScreen";
 import Reminders from "../screens/Reminders";
 import ToothBrushing from "../screens/ToothBrushing";
@@ -21,14 +21,12 @@ import AlarmIcon from "../assets/AlarmIcon.png";
 import HowToIcon from "../assets/HowToIcon.png";
 import MyLogIcon from "../assets/MyLogIcon.png";
 
+//Import services
 import useProfileLink from "./ProfileLink";
 
 
 const HomeStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-
-const HOMESCREENICON = "";
-const REMINDERSCREENICON = "";
 
 function HomeStackScreen({ initialScreen }) {
 
