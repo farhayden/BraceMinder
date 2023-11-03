@@ -1,12 +1,12 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { TouchableOpacity, Image, StyleSheet } from 'react-native';
 import styles from "../assets/style.jsx";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import profileIcon from "../assets/profileIcon.png"
 
 const PROFILE = profileIcon;
 
-// --- Profile Context ---
+
 export const ProfileContext = React.createContext({
   profileData: {
     name: '',
@@ -17,7 +17,6 @@ export const ProfileContext = React.createContext({
   },
   setProfileData: () => {}
 });
-
 export const ProfileProvider = ({ children }) => {
   const [profileData, setProfileData] = useState({
     name: "John",
@@ -27,8 +26,36 @@ export const ProfileProvider = ({ children }) => {
     sex: "Male",
   });
 
+  const saveProfileData = async (data) => {
+    try {
+      await AsyncStorage.setItem('@profileData', JSON.stringify(data));
+    } catch (e) {
+      console.error("Failed to save profile data", e);
+    }
+  };
+
+  const loadProfileData = async () => {
+    try {
+      const savedData = await AsyncStorage.getItem('@profileData');
+      if (savedData !== null) {
+        setProfileData(JSON.parse(savedData));
+      }
+    } catch (e) {
+      console.error("Failed to load profile data", e);
+    }
+  };
+
+  useEffect(() => {
+    loadProfileData();
+  }, []);
+
+  const updateProfileData = (data) => {
+    setProfileData(data);
+    saveProfileData(data);
+  };
+
   return (
-    <ProfileContext.Provider value={{ profileData, setProfileData }}>
+    <ProfileContext.Provider value={{ profileData, setProfileData: updateProfileData }}>
       {children}
     </ProfileContext.Provider>
   );

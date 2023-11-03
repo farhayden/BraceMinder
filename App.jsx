@@ -26,7 +26,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import { BottomTabNav } from './services/Navigation';
-import ImageContext from './services/ImageContext';
+import ImageContext, { ImageProvider } from './services/ImageContext';
 import { LogBox } from 'react-native';
 import { ProfileProvider } from './services/ProfileLink';
 
@@ -97,13 +97,17 @@ function App() {
     
 
 return(<>
+{/* <ImageContext.Provider value={{ images, setImages, addImage, clearImages }}> */}
+<ImageProvider>
  <ProfileProvider>
-<ImageContext.Provider value={{ images, setImages, addImage, clearImages }}>
+
   {/* <View>
     <Button title="Permissions" onPress={checkPermission}/>
   </View>  */}
-  </ImageContext.Provider>
+ 
   <BottomTabNav/></ProfileProvider>
+   {/* </ImageContext.Provider> */}
+   </ImageProvider>
 </>);
 }
 

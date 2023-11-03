@@ -25,7 +25,8 @@ const rowGapSize = 20; // Adjust this value to set the desired gap size between 
 const MyLogScreen = () => {
   const navigation = useNavigation();
   useProfileLink(navigation);
-  const { images } = useContext(ImageContext);
+  const { images, addImage} = useContext(ImageContext);
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 

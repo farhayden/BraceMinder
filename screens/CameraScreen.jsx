@@ -21,6 +21,7 @@ import {
   useCameraPermission,
 } from 'react-native-vision-camera';
 
+
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 
 import ImageContext from '../services/ImageContext';
@@ -33,7 +34,7 @@ export default function CameraScreen() {
   const [photo, setPhoto] = useState(null);
   const cameraRef = useRef(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
-  const {images, setImages} = useContext(ImageContext);
+  const {images, setImages, addImage} = useContext(ImageContext);
   const {hasPermission, requestPermission} = useCameraPermission();
   const [isPermissionDenied, setIsPermissionDenied] = useState(false);
   const cameras = useCameraDevices(); // Handle camera devices
@@ -93,14 +94,7 @@ export default function CameraScreen() {
               try {
                 await CameraRoll.save(`file://${file.path}`, {type: 'photo'});
                 // Update the context with the new image
-                setImages(prevImages => {
-                  console.log(
-                    'Adding new image to state:',
-                    `file://${file.path}`,
-                  );
-                  console.log('Images :>> ', images);
-                  return [...prevImages, `file://${file.path}`];
-                });
+                addImage(`file://${file.path}`);
                 setShowCamera(true);
               } catch (error) {
                 console.error('Failed to save the image', error);
