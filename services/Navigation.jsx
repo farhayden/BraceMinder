@@ -9,6 +9,10 @@ import { useNavigation } from '@react-navigation/native';
 import HomeScreen from "../screens/HomeScreen";
 import Reminders from "../screens/Reminders";
 import ToothBrushing from "../screens/ToothBrushing";
+import RubberBands from "../screens/RubberBands";
+import ClearAligners from "../screens/ClearAligners";
+import Retainers from "../screens/Retainers";
+import OralHabits from "../screens/OralHabits";
 import ProfileScreen from "../screens/ProfileScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import HowToScreen from "../screens/HowToScreen";
@@ -40,7 +44,11 @@ function HomeStackScreen({ initialScreen }) {
       >
         <HomeStack.Screen name="BraceMinder" component={HomeScreen} />
         <HomeStack.Screen name="Reminders" component={Reminders} />
-        <HomeStack.Screen name="ToothBrushing" component={ToothBrushing} />
+        <HomeStack.Screen name="Tooth Brushing" component={ToothBrushing} />
+        <HomeStack.Screen name="Rubber Bands" component={RubberBands} />
+        <HomeStack.Screen name="Clear Aligners" component={ClearAligners} />
+        <HomeStack.Screen name="Oral Habits" component={OralHabits} />
+        <HomeStack.Screen name="Retainers" component={Retainers} />
         <HomeStack.Screen name="Profile" component={ProfileScreen} />
         <HomeStack.Screen name="Edit Profile" component={EditProfileScreen} />
         <HomeStack.Screen name="How To" component={HowToScreen} />

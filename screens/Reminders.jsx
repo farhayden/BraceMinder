@@ -40,10 +40,7 @@ function RemindersScreen() {
         }));
     };
 
-    /**
-     * Navigate to the specified screen.
-     * @param {Object} screenName - The name of the screen to navigate to.
-     */
+
     const handlePress = (screenName) => {
         navigation.navigate(screenName.key);
     };
