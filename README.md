@@ -1,6 +1,6 @@
 # Welcome
 
-This is the BraceMinder App Set up Instructions to run the application natively on an ` android studio ` emulator 
+This is the BraceMinder App set up Instructions to run the application natively on an ` android studio ` emulator 
 
 # Getting Started
 
