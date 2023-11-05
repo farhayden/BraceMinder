@@ -23,22 +23,12 @@ function RubberBands() {
     }, [startDate])
 
     const openStartDatePicker = () => {
-        // DateTimePicker.open({
-        //     value: startDate,
-        //     onChange: handleStartDateChange,
-        //     mode: "date",
-        //     is24Hour: false,
-        // });
+        
         setShowStartDatePicker(true);
     };
 
     const openEndDatePicker = () => {
-        // DateTimePicker.open({
-        //     value: endDate,
-        //     onChange: handleEndDateChange,
-        //     mode: "date",
-        //     is24Hour: false,
-        // });
+        
         setShowEndDatePicker(true);
     };
 
@@ -52,18 +42,7 @@ function RubberBands() {
     };
 
     const handleStartDateChange = (event, selectedDate) => {
-        // console.log(selectedDate);
-        // if (event.type === 'set') {
-        //     if (endDate && selectedDate >= endDate) {
-        //         alert("Start date cannot be on or after the end date.");
-        //     } else {
-        //         setStartDate(selectedDate);
-        //     }
-        // } else if (event.type === 'dismissed') {
-        //     setStartDate(undefined);
-        // } else {
-        //     setStartDate(selectedDate);
-        // }
+        
         if (selectedDate) {
             if(endDate && selectedDate >= endDate) {
                 alert("Start date cannot be on or after the end date.");
@@ -75,15 +54,7 @@ function RubberBands() {
     };
 
     const handleEndDateChange = (event, selectedDate) => {
-        // if (event.type === 'set') {
-        //     if (startDate && selectedDate <= startDate) {
-        //         alert("End date cannot be on or before the start date.");
-        //     } else {
-        //         setEndDate(selectedDate);
-        //     }
-        // } else if (event.type === 'dismissed') {
-        //     setEndDate(undefined);
-        // }
+        
         if (selectedDate){
             if (startDate && selectedDate <= startDate) {
                 alert("End date cannot be on or before the start date.");
