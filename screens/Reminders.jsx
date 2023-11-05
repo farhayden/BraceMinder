@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Button, StyleSheet, Image, FlatList, Switch } from "react-native";
 import ToothBrushing from "./ToothBrushing";
 import RubberBands from "./RubberBands";
+import Retainer from "./Retainer";
 import { useNavigation } from "@react-navigation/native";
 import scheduleLocalNotification from "../services/RemindersService";
 import logo from "../assets/logo.png";
