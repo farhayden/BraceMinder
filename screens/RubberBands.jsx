@@ -66,27 +66,64 @@ function RubberBands() {
     };
 
     const handleRubberBandNotifications = () => {
-        if (!startDate) {
-            alert("Please select a start date.");
-            return;
-        }
-        if (!endDate) {
-            alert("Please select an end date.");
-            return;
-        }
+        // if (!startDate) {
+        //     alert("Please select a start date.");
+        //     return;
+        // }
+        // if (!endDate) {
+        //     alert("Please select an end date.");
+        //     return;
+        // }
+
+        // const currentTime = new Date();
+        // const timeFrameInMinutes = timeFrame * 60;
+        // const notifications = [];
+        // console.log("startDate <= endDate", startDate, "<=", endDate, "==", startDate <= endDate)
+        // while (startDate <= endDate) {
+        //     console.log("Iterating while startDate <= endDate.");
+        //     console.log(startDate, "<=", endDate, "==", startDate <= endDate)
+        //     const randomTime = new Date(startDate.getTime() + Math.random() * timeFrameInMinutes * 60 * 1000);
+        //     console.log('randomTime :>> ', randomTime);
+
+        //     console.log("randomTime <= endDate && randomTime > currentTime", randomTime, "<=", endDate, "&&", randomTime, ">", currentTime);
+        //     if (randomTime <= endDate && randomTime > currentTime) {
+        //         const notificationData = {
+        //             title: "Rubber Bands",
+        //             message: "Remember to change your rubber bands!",
+        //             time: randomTime,
+        //         };
+        //         scheduleLocalNotification(notificationData);
+        //         notifications.push(notificationData);
+        //     }
+        //     startDate.setMinutes(startDate.getMinutes() + timeFrameInMinutes);
+        // }
 
         const currentTime = new Date();
         const timeFrameInMinutes = timeFrame * 60;
         const notifications = [];
-        console.log("startDate <= endDate", startDate, "<=", endDate, "==", startDate <= endDate)
-        while (startDate <= endDate) {
-            console.log("Iterating while startDate <= endDate.");
-            console.log(startDate, "<=", endDate, "==", startDate <= endDate)
-            const randomTime = new Date(startDate.getTime() + Math.random() * timeFrameInMinutes * 60 * 1000);
-            console.log('randomTime :>> ', randomTime);
 
-            console.log("randomTime <= endDate && randomTime > currentTime", randomTime, "<=", endDate, "&&", randomTime, ">", currentTime);
-            if (randomTime <= endDate && randomTime > currentTime) {
+        // Set the times for notifications for the next day in case the current time is after 8 pm
+        const startOfDay = new Date(currentTime);
+        startOfDay.setHours(0, 0, 0, 0);
+        const startOfNextDay = new Date(startOfDay);
+        startOfNextDay.setDate(startOfDay.getDate() + 1);
+
+        // Set the start and end times to 8 am and 8 pm respectively
+        const startTime = new Date(currentTime);
+        startTime.setHours(8, 0, 0, 0);
+        const endTime = new Date(currentTime);
+        endTime.setHours(20, 0, 0, 0);
+
+        // If it's after 10 pm, schedule for the next day
+        if (currentTime.getHours() >= 22) {
+            startTime.setDate(startOfDay.getDate() + 1);
+            endTime.setDate(startOfDay.getDate() + 1);
+        }
+
+        for (let i = 0; i < 12; i += timeFrame) { // Generate notifications for 12 hours (8 am to 8 pm)
+            const randomMinutes = Math.floor(Math.random() * timeFrameInMinutes);
+            const randomTime = new Date(startTime.getTime() + (randomMinutes * 60 * 1000));
+            if (randomTime >= currentTime && randomTime <= endTime) { // Check if the random time is within the specified time frame
                 const notificationData = {
                     title: "Rubber Bands",
                     message: "Remember to change your rubber bands!",
@@ -95,7 +132,6 @@ function RubberBands() {
                 scheduleLocalNotification(notificationData);
                 notifications.push(notificationData);
             }
-            startDate.setMinutes(startDate.getMinutes() + timeFrameInMinutes);
         }
 
         alert("Notifications have been scheduled!");
@@ -115,6 +151,7 @@ function RubberBands() {
             vibration: 300,
             foreground: true,
             date: reminderData.time,
+            repeatType: 'day',
         });
     };
 
@@ -139,7 +176,7 @@ function RubberBands() {
     return (
         <View style={styles.container}>
             <Image source={LOGO} style={styles.logo} />
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
             	<View style={styles.button}>
                     <Button title="Set Start Date" onPress={openStartDatePicker} />
                 </View>
@@ -166,7 +203,7 @@ function RubberBands() {
                 display="spinner"
                 onChange={handleEndDateChange}
             />
-        )}
+        )} */}
         <Text>Select Time Frame for Random Notifications:</Text>
             <View>
                 <RadioGroup
