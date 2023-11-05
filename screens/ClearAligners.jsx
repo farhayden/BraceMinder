@@ -89,7 +89,7 @@ function ClearAligners() {
             if (randomTime <= endDate && randomTime > currentTime) {
                 const notificationData = {
                     title: "Rubber Bands",
-                    message: "Remember to change your rubber bands!",
+                    message: "Remember to check you clear aligners!",
                     time: randomTime,
                 };
                 scheduleLocalNotification(notificationData);
