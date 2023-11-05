@@ -167,6 +167,7 @@ function Retainers() {
             vibration: 300,
             foreground: true,
             date: reminderData.time,
+            repeatType: 'day',
         });
     };
 
