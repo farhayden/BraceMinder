@@ -205,31 +205,6 @@ function RubberBands() {
                     layout="column"
                     
                 />
-                {/* <View style={styles.radioButton}>
-                    <RadioButton
-                        value={1}
-                        status={timeFrame === 1 ? 'checked' : 'unchecked'}
-                        onPress={() => handleTimeFrameChange(1)}
-                    />
-                    <Text>1 hour</Text>
-                </View>
-                <View style={styles.radioButton}>
-                    <RadioButton
-                        value={2}
-                        status={timeFrame === 2 ? 'checked' : 'unchecked'}
-                        onPress={() => handleTimeFrameChange(2)}
-                    />
-                    <Text>2 hours</Text>
-                </View>
-                <View style={styles.radioButton}>
-                    <RadioButton
-                        value={4}
-                        status={timeFrame === 4 ? 'checked' : 'unchecked'}
-                        onPress={() => handleTimeFrameChange(4)}
-                    />
-                    <Text>4 hours</Text>
-                </View>
-                </RadioGroup> */}
             </View>
             <TouchableOpacity >
                 <View style={styles.button}>
