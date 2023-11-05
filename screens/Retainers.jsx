@@ -141,7 +141,7 @@ function Retainers() {
             if (randomTime <= endDate && randomTime > currentTime) {
                 const notificationData = {
                     title: "Rubber Bands",
-                    message: "Remember to change your rubber bands!",
+                    message: "Remember to check your retainer!",
                     time: randomTime,
                 };
                 scheduleLocalNotification(notificationData);
