@@ -74,15 +74,7 @@ function ToothBrushing() {
         });
     }
     const handleScheduleReminders = () => {
-        // const currentTime = new Date(); // Get the current time
-        // // Call the scheduleLocalNotification function with both AM and PM reminder data
-        // //check if amTime and pmTime are set before scheduling
-        // if (amTime && pmTime) {
-        // scheduleLocalNotification(amReminder);
-        // scheduleLocalNotification(pmReminder);
-        // } else {
-        //     alert("Please set both AM and PM times before scheduling reminders.");
-        // }
+        
         const currentTime = new Date();
 
         // Calculate the AM and PM times for the next day if the selected time has passed
