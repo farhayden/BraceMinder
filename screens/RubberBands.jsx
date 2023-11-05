@@ -94,29 +94,6 @@ function RubberBands() {
         closeEndDatePicker();
     };
 
-    // const handleDateChange = (event, selectedDate, isStartDate) => {
-    //     const currentDate = selectedDate || (isStartDate ? startDate : endDate);
-    
-    //     if (event.type === 'set') {
-    //         if (isStartDate) {
-    //             if (currentDate >= endDate) {
-    //                 alert("Start date cannot be on or after the end date.");
-    //             } else {
-    //                 setStartDate(currentDate);
-    //             }
-    //         } else {
-    //             if (currentDate <= startDate) {
-    //                 alert("End date cannot be on or before the start date.");
-    //             } else {
-    //                 setEndDate(currentDate);
-    //             }
-    //         }
-    //     } else if (event.type === 'dismissed') {
-    //         isStartDate ? closeStartDatePicker() : closeEndDatePicker();
-    //     }
-    // };
-
-    // function to schedule a local notification
     const handleRubberBandNotifications = () => {
         if (!startDate) {
             alert("Please select a start date.");
