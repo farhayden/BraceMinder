@@ -89,7 +89,7 @@ function OralHabits() {
             if (randomTime <= endDate && randomTime > currentTime) {
                 const notificationData = {
                     title: "Rubber Bands",
-                    message: "Remember to change your rubber bands!",
+                    message: "Remember to keep up with good oral health habits!",
                     time: randomTime,
                 };
                 scheduleLocalNotification(notificationData);
