@@ -1,14 +1,21 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
+import { Image } from 'react-native';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 
-import HomeScreen from "../screens/HomeScreen";
+//import HomeScreen from "../screens/HomeScreen";
 import Reminders from "../screens/Reminders";
 import ToothBrushing from "../screens/ToothBrushing";
 import RubberBands from "../screens/RubberBands";
 import Retainers from "../screens/Retainers";
+import HowToScreen from "../screens/HowToScreen";
+import MyLogScreen from "../screens/LogScreen";
+import CameraScreen from "../screens/CameraScreen";
+
+import MyLogIcon from "../assets/MyLogIcon.png";
+
 
 const HomeStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -22,11 +29,16 @@ function HomeStackScreen({ initialScreen }) {
         initialRouteName={initialScreen}
         screenOptions={defaultScreenOptions}
       >
-        <HomeStack.Screen name="BraceMinder" component={HomeScreen} />
+        {/* <HomeStack.Screen name="BraceMinder" component={HomeScreen} /> */}
         <HomeStack.Screen name="Reminders" component={Reminders} />
         <HomeStack.Screen name="ToothBrushing" component={ToothBrushing} />
         <HomeStack.Screen name="RubberBands" component={RubberBands} />
         <HomeStack.Screen name="Retainers" component={Retainers}/>
+
+        <HomeStack.Screen name="How To" component={HowToScreen} />
+        <HomeStack.Screen name="My Progress" component={MyLogScreen} />
+        <HomeStack.Screen name="Camera" component={CameraScreen} />
+
       </HomeStack.Navigator>
     );
 }
@@ -68,6 +80,37 @@ function BottomTabNav() {
           >
             {(props) => <HomeStackScreen {...props} initialScreen="Reminders" />}
           </Tab.Screen>
+          <Tab.Screen
+            name="How To"
+            options={{
+              headerShown: false,
+              tabBarIcon: ({ color, size }) => (
+                <MaterialCommunityIcons
+                  name={HOMESCREENICON}
+                  color={color}
+                  size={size}
+                />
+              ),
+            }}
+          >
+            {(props) => (
+              <HomeStackScreen {...props} initialScreen="How To" />
+            )}
+          </Tab.Screen>
+          <Tab.Screen
+          name="My Progress"
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ color, size }) => (
+              <Image
+              source={MyLogIcon}
+              style={{ width: size, height: size }}
+            />
+            ),
+          }}
+        >
+          {(props) => <HomeStackScreen {...props} initialScreen="My Progress" />}
+        </Tab.Screen>
         </Tab.Navigator>
       </NavigationContainer>
     );
