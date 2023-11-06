@@ -1,8 +1,8 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Welcome
+
+This is the BraceMinder App set up Instructions to run the application natively on an ` android studio ` emulator 
 
 # Getting Started
-
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
 ## Step 1: Start the Metro Server
 
@@ -11,6 +11,9 @@ First, you will need to start **Metro**, the JavaScript _bundler_ that ships _wi
 To start Metro, run the following command from the _root_ of your React Native project:
 
 ```bash
+# update dependencies
+npm install
+
 # using npm
 npm start
 
@@ -42,27 +45,27 @@ npm run ios
 yarn ios
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+If everything is set up _correctly_, you should see the BraceMinder app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up the emulator/simulator correctly.
 
 This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
-## Step 3: Modifying your App
+### Wireframe
+![wireframe](https://github.com/farhayden/BraceMinder/assets/83677511/377660f9-33a3-49d2-9622-3d1e66708c3f)
 
-Now that you have successfully run the app, let's modify it.
+## Features
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+### Reminders
+Never miss out on your maintenance with our timely reminders.
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+### Camera Integration
+Capture those essential progress shots and have them safely stored within the app.
 
-## Congratulations! :tada:
+### How-To Guides 
+Taking care of braces can be tricky! Our step-by-step instructions and tips ensure you're always on the right path.
 
-You've successfully run and modified your React Native App. :partying_face:
+### Progress Log
+Watch your journey unfold! Track and view your braces' progress over time and cherish those milestones.
 
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
 
 # Troubleshooting
 
