@@ -1,12 +1,22 @@
+/**
+ * RemindersScreen Component
+ * 
+ * @file This file defines the RemindersScreen component. The component displays 
+ * a list of tasks, each with a switch to enable or disable reminders. The list 
+ * items are also clickable to navigate to a corresponding detail screen.
+ * 
+ * @requires react
+ * @requires react-native
+ * @requires @react-navigation/native
+ * @requires "../services/RemindersService"
+ * @requires "../assets/logo.png"
+ * @requires "../data/tasks"
+ * @requires "../services/ProfileLink"
+ */
+
 import React, { useState } from "react";
-
-import { View, Text, TouchableOpacity, Button, StyleSheet, Image, FlatList, Switch } from "react-native";
-
-import ToothBrushing from "./ToothBrushing";
-import RubberBands from "./RubberBands";
-import Retainers from "./Retainers";
+import { View, Text, TouchableOpacity, StyleSheet, Image, FlatList, Switch } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import scheduleLocalNotification from "../services/RemindersService";
 import logo from "../assets/logo.png";
 import tasks from "../data/tasks";
 
@@ -17,48 +27,53 @@ function RemindersScreen() {
 
     const [taskSwitches, setTaskSwitches] = useState({});
 
+    /**
+     * Toggle the state of the switch for a given task.
+     * @param {number} taskId - The ID of the task.
+     * @param {boolean} value - The new switch value.
+     */
     const handleSwitch = (taskId, value) => {
         setTaskSwitches(prevSwitches => ({
-          ...prevSwitches,
-          [taskId]: value // Using the task ID as the key to store each task's switch state
+            ...prevSwitches,
+            [taskId]: value
         }));
     };
 
-  
+    /**
+     * Navigate to the specified screen.
+     * @param {Object} screenName - The name of the screen to navigate to.
+     */
     const handlePress = (screenName) => {
-        navigation.navigate(screenName); // Navigate to the screen with the specified screenName
-
+        navigation.navigate(screenName.key);
     };
-      
-    return (<>
-        
+
+    return (
         <View style={styles.container}>
-
-        <Image source={LOGO} style={styles.logo} />
-      <FlatList
-        data={tasks}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => handlePress(item)} style={styles.listItem}>
-            <Text style={styles.item}>{item.key}</Text>
-            <Switch
-              style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }}
-              trackColor={{ false: "#ffa500", true: "#50C878" }}
-              thumbColor={taskSwitches[item.id] ? "#ffffff" : "#fffffff"}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={(value) => handleSwitch(item.id, value)}
-              value={taskSwitches[item.id] || false}  // This line makes sure each switch has its own unique state
+            <Image source={LOGO} style={styles.logo} />
+            <FlatList
+                data={tasks}
+                renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => handlePress(item)} style={styles.listItem}>
+                        <Text style={styles.item}>{item.key}</Text>
+                        <Switch
+                            style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }}
+                            trackColor={{ false: "#ffa500", true: "#50C878" }}
+                            thumbColor={taskSwitches[item.id] ? "#ffffff" : "#fffffff"}
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={(value) => handleSwitch(item.id, value)}
+                            value={taskSwitches[item.id] || false}
+                        />
+                    </TouchableOpacity>
+                )}
             />
-          </TouchableOpacity>
-        )}
-      />
-    </View>
-
-    </>);
+        </View>
+    );
 }
+
+// Styling for the RemindersScreen component elements
 const styles = StyleSheet.create({
     container: {
         flex: 0,
-
         height: "100%",
         flexDirection: "column",
         backgroundColor: '#ffffff',
@@ -67,9 +82,9 @@ const styles = StyleSheet.create({
         alignItems: "center", // Center the content horizontally
     },
     logo: {
-        width: 100, // Set a width for the logo
-        height: 100, // Set a height for the logo (you can adjust as needed)
-        resizeMode: "contain", // Keep the logo's aspect ratio
+        width: 100,
+        height: 100,
+        resizeMode: "contain",
         marginBottom: 80
     },
     
@@ -87,19 +102,17 @@ const styles = StyleSheet.create({
         height: 44,
         width: 200,
         backgroundColor: "#f7f7f7",
-        color: 'black', 
-        borderWidth: 1,   
+        color: 'black',
+        borderWidth: 1,
         borderColor: 'black',
-        borderRadius: 25, // Rounded edges
-        marginBottom: 10, // Gap between items
+        borderRadius: 25,
+        marginBottom: 10,
         textAlign: 'center',
-    
     },
-
     listItem: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-around', // This already makes sure there's space between items
+        justifyContent: 'space-around',
         padding: 5,
         width: '100%', // Use full width of the container
 
