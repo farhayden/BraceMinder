@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { TouchableOpacity, Image } from 'react-native';
-import styles from "../assets/style.jsx";
+import style from "../assets/style.jsx";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import profileIcon from "../assets/profileIcon.png"
 
