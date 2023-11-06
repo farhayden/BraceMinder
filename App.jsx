@@ -26,6 +26,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import { BottomTabNav } from './services/Navigation';
+import { ProfileProvider } from './services/ProfileLink';
 
 function App() {
 
@@ -81,10 +82,11 @@ function App() {
     
 
 return(<>
+ <ProfileProvider>
   <View>
     {/* <Button title="Permissions" onPress={checkPermission}/> */}
   </View> 
-  <BottomTabNav/>
+  <BottomTabNav/></ProfileProvider>
 </>);
 }
 
