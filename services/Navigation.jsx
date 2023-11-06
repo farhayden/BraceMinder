@@ -8,11 +8,14 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 //import HomeScreen from "../screens/HomeScreen";
 import Reminders from "../screens/Reminders";
 import ToothBrushing from "../screens/ToothBrushing";
+import RubberBands from "../screens/RubberBands";
+import Retainers from "../screens/Retainers";
 import HowToScreen from "../screens/HowToScreen";
 import MyLogScreen from "../screens/LogScreen";
 import CameraScreen from "../screens/CameraScreen";
 
 import MyLogIcon from "../assets/MyLogIcon.png";
+
 
 const HomeStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -29,9 +32,13 @@ function HomeStackScreen({ initialScreen }) {
         {/* <HomeStack.Screen name="BraceMinder" component={HomeScreen} /> */}
         <HomeStack.Screen name="Reminders" component={Reminders} />
         <HomeStack.Screen name="ToothBrushing" component={ToothBrushing} />
+        <HomeStack.Screen name="RubberBands" component={RubberBands} />
+        <HomeStack.Screen name="Retainers" component={Retainers}/>
+
         <HomeStack.Screen name="How To" component={HowToScreen} />
         <HomeStack.Screen name="My Progress" component={MyLogScreen} />
         <HomeStack.Screen name="Camera" component={CameraScreen} />
+
       </HomeStack.Navigator>
     );
 }
