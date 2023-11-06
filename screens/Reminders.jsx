@@ -53,7 +53,7 @@ function RemindersScreen() {
       />
     </View>
 
-    );
+    </>);
 }
 const styles = StyleSheet.create({
     container: {
