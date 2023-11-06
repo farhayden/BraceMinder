@@ -32,7 +32,7 @@ function RubberBands() {
         time: defaultPmTime, // Default time for the PM reminder
         repeatTime: 1, // Default repeat time (you can change this)
         repeatType: "day",
-        ongoing: true,
+        ongoing: false,
     });
 
     const handlePmTimeChange = (event, selectedTime) => {
@@ -48,6 +48,7 @@ function RubberBands() {
     const handleScheduleReminders = () => {
         
         const currentTime = new Date();
+        console.log("Current time 2: " + currentTime);
 
         // Calculate the PM times for the next day if the selected time has passed
         const nextPmTime = pmTime < currentTime ? new Date(pmTime.getTime() + 24 * 60 * 60 * 1000) : pmTime;
@@ -140,33 +141,42 @@ function RubberBands() {
         //     }
         //     startDate.setMinutes(startDate.getMinutes() + timeFrameInMinutes);
         // }
+        const timeZone = 'Pacific/Auckland';
+        const options = { timeZone, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 3, hour12: false };
+        const formatter = new Intl.DateTimeFormat('en-NZ', options);
+        const currentTimeInNZ = formatter.format(new Date());
+
+        console.log("nz time:",currentTimeInNZ);
 
         const currentTime = new Date();
         const timeFrameInMinutes = timeFrame * 60;
         const notifications = [];
 
         // Set the times for notifications for the next day in case the current time is after 8 pm
-        const startOfDay = new Date(currentTime);
+        const startOfDay = new Date(currentTimeInNZ);
         startOfDay.setHours(0, 0, 0, 0);
         const startOfNextDay = new Date(startOfDay);
         startOfNextDay.setDate(startOfDay.getDate() + 1);
 
         // Set the start and end times to 8 am and 8 pm respectively
-        const startTime = new Date(currentTime);
+        const startTime = new Date(currentTimeInNZ);
         startTime.setHours(8, 0, 0, 0);
-        const endTime = new Date(currentTime);
+        const endTime = new Date(currentTimeInNZ);
         endTime.setHours(20, 0, 0, 0);
 
+        console.log(startTime)
+        console.log(currentTimeInNZ)
+
         // If it's after 10 pm, schedule for the next day
-        if (currentTime.getHours() >= 22) {
-            startTime.setDate(startOfDay.getDate() + 1);
-            endTime.setDate(startOfDay.getDate() + 1);
-        }
+        // if (currentTime.getHours() >= 20) {
+        //     startTime.setDate(startOfDay.getDate() + 1);
+        //     endTime.setDate(startOfDay.getDate() + 1);
+        // }
 
         for (let i = 0; i < 12; i += timeFrame) { // Generate notifications for 12 hours (8 am to 8 pm)
             const randomMinutes = Math.floor(Math.random() * timeFrameInMinutes);
             const randomTime = new Date(startTime.getTime() + (randomMinutes * 60 * 1000));
-            if (randomTime >= currentTime && randomTime <= endTime) { // Check if the random time is within the specified time frame
+            if (randomTime >= startTime && randomTime <= endTime) { // Check if the random time is within the specified time frame
                 const notificationData = {
                     title: "Rubber Bands",
                     message: "Remember to change your rubber bands!",
@@ -181,7 +191,9 @@ function RubberBands() {
 
         if (notifications.length === 0) {
             alert("No valid notifications were scheduled within the selected time frame.");
+            console.log(notifications.length)
         }
+        
     };
 
     function scheduleLocalNotification(reminderData) {
@@ -195,19 +207,9 @@ function RubberBands() {
             foreground: true,
             date: reminderData.time,
             repeatType: 'day',
-            ongoing: true,
+            ongoing: false,
         });
     }
-
-    // // Evening Reminder logic
-    // const pmReminderData = {
-    //     title: "Rubber Bands (Bedtime)",
-    //     message: "Please remember your rubber bands before bedtime!",
-    //     time: pmTime, // Set the desired time for the evening reminder
-    //     repeatType: 'day', // You can customize the repeat type as needed
-    // };
-    // scheduleLocalNotification(pmReminderData);
-
 
     const radioButtons = useMemo(() => ([
         {
@@ -230,37 +232,10 @@ function RubberBands() {
     return (
         <View style={styles.container}>
             <Image source={LOGO} style={styles.logo} />
-            {/* <TouchableOpacity>
-            	<View style={styles.button}>
-                    <Button title="Set Start Date" onPress={openStartDatePicker} />
-                </View>
-            </TouchableOpacity>
-            {showStartDatePicker && (
-                <DateTimePicker
-                value={startDate}
-                mode="date"
-                is24Hour={false}
-                display="spinner"
-                onChange={handleStartDateChange}
-            />
-        )}
-        <TouchableOpacity >
-            <View style={styles.button}>
-                <Button title="Set End Date" onPress= {openEndDatePicker} />
-            </View>
-        </TouchableOpacity>
-        {showEndDatePicker && (
-            <DateTimePicker
-                value={endDate}
-                mode="date"
-                is24Hour={false}
-                display="spinner"
-                onChange={handleEndDateChange}
-            />
-        )} */}
         <Text>Select Time Frame for Random Notifications:</Text>
+        
             <View>
-                <RadioGroup
+                <RadioGroup style={styles.radioGroup}
                     radioButtons={radioButtons}
                     onPress={setSelectedId}
                     selectedId={selectedId}
@@ -268,6 +243,7 @@ function RubberBands() {
                     
                 />
             </View>
+            <Text>*Scheduled between 8am and 8pm only.</Text>
             <TouchableOpacity >
                 <View style={styles.button}>
                     <Button title="Schedule Random Notifications" onPress={handleRubberBandNotifications} />
@@ -285,7 +261,7 @@ function RubberBands() {
             )}
             <TouchableOpacity >
                 <View style={styles.button}>
-                    <Button style={styles.button} title='Set Evening Reminder' onPress={() => setShowPmTimePicker(true)}/>
+                    <Button style={styles.button} title='Set Bedtime Reminder' onPress={() => setShowPmTimePicker(true)}/>
                 </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleScheduleReminders(true)}>
@@ -297,7 +273,7 @@ function RubberBands() {
                         marginTop: 50,
                     }}
                 >
-                    <Text style={{ color: "white" }}>Schedule Reminders</Text>
+                    <Text style={{ color: "white" }}>Schedule Bedtime Reminder</Text>
                 </View>
             </TouchableOpacity>
         </View>
@@ -332,6 +308,9 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
         alignItems: "center",
         width: "100%",
+    },
+    radioGroup: {
+        justifyContent: "center",
     },
     radioButton: {
         flexDirection: "row",
