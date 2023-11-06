@@ -14,56 +14,99 @@ function RubberBands() {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [timeFrame, setTimeFrame] = useState(1); // Default time frame is 1 hour
-    const [showStartDatePicker, setShowStartDatePicker] = useState(false);
-    const [showEndDatePicker, setShowEndDatePicker] = useState(false); 
+    //const [showStartDatePicker, setShowStartDatePicker] = useState(false);
+    //const [showEndDatePicker, setShowEndDatePicker] = useState(false); 
     const [selectedId, setSelectedId] = useState();
+    // New state variables for the selected times
+    const [pmTime, setPmTime] = useState(new Date());
+    // State to control the visibility of the time picker for PM reminder
+    const [showPmTimePicker, setShowPmTimePicker] = useState(false);
 
-    useEffect(() => {
-        alert("Startdate changed!")
-    }, [startDate])
+    const defaultPmTime = new Date();
+    defaultPmTime.setHours(20); // Set PM hour (e.g., 8 PM)
+    defaultPmTime.setMinutes(0); // Set PM minute (e.g., 0 minutes)
 
-    const openStartDatePicker = () => {
-        
-        setShowStartDatePicker(true);
-    };
+    const [pmReminder, setPmReminder] = useState({
+        title: "RubberBands (Bedtime)",
+        message: "Please remember to check your rubber bands",
+        time: defaultPmTime, // Default time for the PM reminder
+        repeatTime: 1, // Default repeat time (you can change this)
+        repeatType: "day",
+        ongoing: true,
+    });
 
-    const openEndDatePicker = () => {
-        
-        setShowEndDatePicker(true);
-    };
-
-    const closeStartDatePicker = () => {
-
-        setShowStartDatePicker(false);
-    };
-
-    const closeEndDatePicker = () => {
-        setShowEndDatePicker(false);
-    };
-
-    const handleStartDateChange = (event, selectedDate) => {
-        
-        if (selectedDate) {
-            if(endDate && selectedDate >= endDate) {
-                alert("Start date cannot be on or after the end date.");
-            } else {
-                setStartDate(selectedDate);
-            }
+    const handlePmTimeChange = (event, selectedTime) => {
+        if (selectedTime !== undefined) {
+            setPmTime(selectedTime);
+            
+            const updatedPmReminder = { ...pmReminder, time: selectedTime };
+            setPmReminder(updatedPmReminder);
         }
-        closeStartDatePicker();
+        setShowPmTimePicker(false);
     };
 
-    const handleEndDateChange = (event, selectedDate) => {
+    const handleScheduleReminders = () => {
         
-        if (selectedDate){
-            if (startDate && selectedDate <= startDate) {
-                alert("End date cannot be on or before the start date.");
-            } else {
-                setEndDate(selectedDate);
-            }
-        }
-        closeEndDatePicker();
+        const currentTime = new Date();
+
+        // Calculate the PM times for the next day if the selected time has passed
+        const nextPmTime = pmTime < currentTime ? new Date(pmTime.getTime() + 24 * 60 * 60 * 1000) : pmTime;
+
+        // Set the PM time for the next day
+        setPmTime(nextPmTime);
+
+        const updatedPmReminder = { ...pmReminder, time: nextPmTime };
+
+        scheduleLocalNotification(updatedPmReminder);
     };
+
+
+    // useEffect(() => {
+    //     alert("Startdate changed!")
+    // }, [startDate])
+
+    // const openStartDatePicker = () => {
+        
+    //     setShowStartDatePicker(true);
+    // };
+
+    // const openEndDatePicker = () => {
+        
+    //     setShowEndDatePicker(true);
+    // };
+
+    // const closeStartDatePicker = () => {
+
+    //     setShowStartDatePicker(false);
+    // };
+
+    // const closeEndDatePicker = () => {
+    //     setShowEndDatePicker(false);
+    // };
+
+    // const handleStartDateChange = (event, selectedDate) => {
+        
+    //     if (selectedDate) {
+    //         if(endDate && selectedDate >= endDate) {
+    //             alert("Start date cannot be on or after the end date.");
+    //         } else {
+    //             setStartDate(selectedDate);
+    //         }
+    //     }
+    //     closeStartDatePicker();
+    // };
+
+    // const handleEndDateChange = (event, selectedDate) => {
+        
+    //     if (selectedDate){
+    //         if (startDate && selectedDate <= startDate) {
+    //             alert("End date cannot be on or before the start date.");
+    //         } else {
+    //             setEndDate(selectedDate);
+    //         }
+    //     }
+    //     closeEndDatePicker();
+    // };
 
     const handleRubberBandNotifications = () => {
         // if (!startDate) {
@@ -152,8 +195,19 @@ function RubberBands() {
             foreground: true,
             date: reminderData.time,
             repeatType: 'day',
+            ongoing: true,
         });
-    };
+    }
+
+    // // Evening Reminder logic
+    // const pmReminderData = {
+    //     title: "Rubber Bands (Bedtime)",
+    //     message: "Please remember your rubber bands before bedtime!",
+    //     time: pmTime, // Set the desired time for the evening reminder
+    //     repeatType: 'day', // You can customize the repeat type as needed
+    // };
+    // scheduleLocalNotification(pmReminderData);
+
 
     const radioButtons = useMemo(() => ([
         {
@@ -216,7 +270,34 @@ function RubberBands() {
             </View>
             <TouchableOpacity >
                 <View style={styles.button}>
-                    <Button title="Schedule Custom Notifications" onPress={handleRubberBandNotifications} />
+                    <Button title="Schedule Random Notifications" onPress={handleRubberBandNotifications} />
+                </View>
+            </TouchableOpacity>
+            {showPmTimePicker && (
+                <DateTimePicker
+                    value={pmTime || new Date()}
+                    color="blue"
+                    mode="time"
+                    is24Hour={false}
+                    display="spinner"
+                    onChange={handlePmTimeChange}
+                />
+            )}
+            <TouchableOpacity >
+                <View style={styles.button}>
+                    <Button style={styles.button} title='Set Evening Reminder' onPress={() => setShowPmTimePicker(true)}/>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleScheduleReminders(true)}>
+                <View
+                    style={{
+                        backgroundColor: "blue",
+                        padding: 10,
+                        borderRadius: 5,
+                        marginTop: 50,
+                    }}
+                >
+                    <Text style={{ color: "white" }}>Schedule Reminders</Text>
                 </View>
             </TouchableOpacity>
         </View>
