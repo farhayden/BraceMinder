@@ -36,7 +36,7 @@ padding:10,
   },
   logo: {
     width: 100, // Set a width for the logo
-    height: 100, // Set a height for the logo (you can adjust as needed)
+    height: 100, // Set a height for the logo
     resizeMode: "contain", // Keep the logo's aspect ratio
     marginBottom:20,
   },
