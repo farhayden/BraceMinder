@@ -66,6 +66,8 @@ Taking care of braces can be tricky! Our step-by-step instructions and tips ensu
 ### Progress Log
 Watch your journey unfold! Track and view your braces' progress over time and cherish those milestones.
 
+### Personal Profile
+Edit and update your own personal profile.
 
 # Troubleshooting
 
