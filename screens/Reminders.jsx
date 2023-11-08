@@ -66,7 +66,8 @@ function RemindersScreen() {
                     </TouchableOpacity>
                 )}
             />
-        </View>
+        
+    </View>
     );
 }
 
