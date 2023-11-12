@@ -10,24 +10,33 @@ import HomeScreen from "../screens/HomeScreen";
 import Reminders from "../screens/Reminders";
 import ToothBrushing from "../screens/ToothBrushing";
 import RubberBands from "../screens/RubberBands";
+import ClearAligners from "../screens/ClearAligners";
 import Retainers from "../screens/Retainers";
 import OralHabits from "../screens/OralHabits";
-import ClearAligners from "../screens/ClearAligners";
+import ProfileScreen from "../screens/ProfileScreen";
+import EditProfileScreen from "../screens/EditProfileScreen";
 import HowToScreen from "../screens/HowToScreen";
 import MyLogScreen from "../screens/LogScreen";
 import CameraScreen from "../screens/CameraScreen";
 
+//Import icons
+import HomeIcon from "../assets/HomeIcon.png";
+import AlarmIcon from "../assets/AlarmIcon.png";
+import HowToIcon from "../assets/HowToIcon.png";
 import MyLogIcon from "../assets/MyLogIcon.png";
 
 //Import services
 import useProfileLink from "./ProfileLink";
 
 
-
 const HomeStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function HomeStackScreen({ initialScreen }) {
+
+  const navigation = useNavigation();
+  useProfileLink(navigation);
+
     return (
       <HomeStack.Navigator
         initialRouteName={initialScreen}
@@ -37,13 +46,14 @@ function HomeStackScreen({ initialScreen }) {
         <HomeStack.Screen name="Reminders" component={Reminders} />
         <HomeStack.Screen name="Tooth Brushing" component={ToothBrushing} />
         <HomeStack.Screen name="Rubber Bands" component={RubberBands} />
-        <HomeStack.Screen name="Retainers" component={Retainers}/>
-        <HomeStack.Screen name="Oral Habits" component={OralHabits}/>
-        <HomeStack.Screen name="Clear Aligners" component={ClearAligners}/>
+        <HomeStack.Screen name="Clear Aligners" component={ClearAligners} />
+        <HomeStack.Screen name="Oral Habits" component={OralHabits} />
+        <HomeStack.Screen name="Retainers" component={Retainers} />
+        <HomeStack.Screen name="Profile" component={ProfileScreen} />
+        <HomeStack.Screen name="Edit Profile" component={EditProfileScreen} />
         <HomeStack.Screen name="How To" component={HowToScreen} />
         <HomeStack.Screen name="My Progress" component={MyLogScreen} />
         <HomeStack.Screen name="Camera" component={CameraScreen} />
-
       </HomeStack.Navigator>
     );
 }
@@ -57,11 +67,10 @@ function BottomTabNav() {
             options={{
               headerShown: false,
               tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons
-                  name={HOMESCREENICON}
-                  color={color}
-                  size={size}
-                />
+                <Image
+                source={HomeIcon}
+                style={{ width: size, height: size }}
+              />
               ),
             }}
           >
@@ -75,11 +84,10 @@ function BottomTabNav() {
             options={{
               headerShown: false,
               tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons
-                  name={REMINDERSCREENICON}
-                  color={color}
-                  size={size}
-                />
+                <Image
+                source={AlarmIcon}
+                style={{ width: size, height: size }}
+              />
               ),
             }}
           >
@@ -90,11 +98,10 @@ function BottomTabNav() {
             options={{
               headerShown: false,
               tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons
-                  name={HOMESCREENICON}
-                  color={color}
-                  size={size}
-                />
+                <Image
+              source={HowToIcon}
+              style={{ width: size, height: size }}
+            />
               ),
             }}
           >

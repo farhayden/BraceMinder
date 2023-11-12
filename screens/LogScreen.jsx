@@ -9,12 +9,14 @@ import { Dimensions, FlatList, StyleSheet, View, Modal, TouchableOpacity, Image,
 import { useNavigation } from '@react-navigation/native';
 import logo from "../assets/logo.png";
 import cameraIcon from "../assets/cameraIcon.png"
+import profileIcon from "../assets/profileIcon.png"
 import { styles } from '../assets/style.jsx';
 import ImageContext from '../services/ImageContext';
-//import useProfileLink from "../components/ProfileLink.js";
+import useProfileLink from "../services/ProfileLink.jsx";
 
 const LOGO = logo;
 const CAMERA = cameraIcon;
+const PROFILE  = profileIcon;
 const screenWidth = Dimensions.get('window').width;  // Get the width of the device screen
 const imageSize = screenWidth / 5;  // Calculate the image size based on screen width
 

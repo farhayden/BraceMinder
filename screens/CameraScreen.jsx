@@ -32,7 +32,7 @@ export default function CameraScreen() {
   const [photo, setPhoto] = useState(null);
   const cameraRef = useRef(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
-  const {images, setImages} = useContext(ImageContext);
+  const {images, addImage} = useContext(ImageContext);
   const {hasPermission, requestPermission} = useCameraPermission();
   const [isPermissionDenied, setIsPermissionDenied] = useState(false);
   const cameras = useCameraDevices(); // Handle camera devices

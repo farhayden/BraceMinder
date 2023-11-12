@@ -11,7 +11,7 @@ import PushNotification, {Importance} from 'react-native-push-notification';
 import {BottomTabNav} from './services/Navigation';
 import {ImageProvider} from './services/ImageContext';
 import {LogBox} from 'react-native';
-import {ProfileProvider} from './services/ProfileLink';
+import { ProfileProvider } from './services/ProfileLink';
 
 LogBox.ignoreLogs([
   'Found screens with the same name nested inside one another.',
