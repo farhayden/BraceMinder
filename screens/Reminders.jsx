@@ -17,6 +17,7 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image, FlatList, Switch } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import useProfileLink from "../services/ProfileLink";
 import logo from "../assets/logo.png";
 import tasks from "../data/tasks";
 
@@ -24,7 +25,8 @@ const LOGO = logo;
 
 function RemindersScreen() {
     const navigation = useNavigation();
-
+    useProfileLink(navigation); 
+    
     const [taskSwitches, setTaskSwitches] = useState({});
 
     /**
