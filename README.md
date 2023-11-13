@@ -69,6 +69,7 @@ Watch your journey unfold! Track and view your braces' progress over time and ch
 ### Personal Profile
 Edit and update your own personal profile.
 
+
 # Troubleshooting
 
 If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
