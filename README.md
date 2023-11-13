@@ -49,6 +49,27 @@ If everything is set up _correctly_, you should see the BraceMinder app running 
 
 This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
+### Wireframe
+![wireframe](https://github.com/farhayden/BraceMinder/assets/83677511/377660f9-33a3-49d2-9622-3d1e66708c3f)
+
+## Features
+
+### Reminders
+Never miss out on your maintenance with our timely reminders.
+
+### Camera Integration
+Capture those essential progress shots and have them safely stored within the app.
+
+### How-To Guides 
+Taking care of braces can be tricky! Our step-by-step instructions and tips ensure you're always on the right path.
+
+### Progress Log
+Watch your journey unfold! Track and view your braces' progress over time and cherish those milestones.
+
+### Personal Profile
+Edit and update your own personal profile.
+
+
 # Troubleshooting
 
 If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.

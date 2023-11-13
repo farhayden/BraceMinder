@@ -8,6 +8,12 @@
   <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
   <uses-permission android:name="android.permission.NOTIFICATION" />
   <uses-permission android:name="android.permission.SET_TIME"/>
+  <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+  <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    android:maxSdkVersion="32" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
   <application
     android:name=".MainApplication"
@@ -22,7 +28,8 @@
       android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
       android:launchMode="singleTask"
       android:windowSoftInputMode="adjustResize"
-      android:exported="true">
+      android:exported="true"
+      android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
